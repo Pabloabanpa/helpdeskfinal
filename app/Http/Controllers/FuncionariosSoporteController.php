@@ -31,32 +31,40 @@ class FuncionariosSoporteController extends Controller
     public function create(): View
     {
         $funcionariosSoporte = new FuncionariosSoporte();
-        $funcionarios = Funcionario::all(); // Obtener todos los funcionarios
-        $roles = Role::select('id', 'nombre')->get(); // Obtener lista de roles
+
+        // Obtener solo el `id` y `username` de los funcionarios
+        $funcionarios = Funcionario::select('id', 'username')->get();
+
+        // Obtener la lista de roles
+        $roles = Role::select('id', 'nombre')->get();
 
         return view('funcionarios-soporte.create', compact('funcionariosSoporte', 'funcionarios', 'roles'));
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(FuncionariosSoporteRequest $request): RedirectResponse
     {
+        // ✅ Validar los datos con el FormRequest (FuncionariosSoporteRequest)
         $validatedData = $request->validated();
 
-        // Verificar si la contraseña está presente y encriptarla
+        // ✅ Verificar y encriptar la contraseña antes de guardarla
         if (!empty($validatedData['password'])) {
             $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-            return Redirect::back()->withErrors(['password' => 'La contraseña es obligatoria.'])->withInput();
         }
 
-        // 🚀 Guardar los datos correctamente (ahora usando `$validatedData`)
-        FuncionariosSoporte::create($validatedData);
+        // ✅ Guardar los datos en la base de datos
+        $funcionarioSoporte = FuncionariosSoporte::create($validatedData);
 
+        // ✅ Redirigir con mensaje de éxito
         return Redirect::route('funcionarios-soportes.index')
             ->with('success', 'Funcionario de soporte creado correctamente.');
     }
+
+
+
 
     /**
      * Display the specified resource.
@@ -74,11 +82,16 @@ class FuncionariosSoporteController extends Controller
     public function edit($id): View
     {
         $funcionariosSoporte = FuncionariosSoporte::findOrFail($id);
-        $funcionarios = Funcionario::all(); // Obtener lista de funcionarios
-        $roles = Role::select('id', 'nombre')->get(); // Obtener lista de roles
+
+        // Obtener solo `id` y `username` de los funcionarios para mejorar el rendimiento
+        $funcionarios = Funcionario::select('id', 'username')->get();
+
+        // Obtener la lista de roles
+        $roles = Role::select('id', 'nombre')->get();
 
         return view('funcionarios-soporte.edit', compact('funcionariosSoporte', 'funcionarios', 'roles'));
     }
+
 
     /**
      * Update the specified resource in storage.

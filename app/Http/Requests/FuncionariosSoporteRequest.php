@@ -24,11 +24,9 @@ class FuncionariosSoporteRequest extends FormRequest
         return [
 			'funcionario_id' => 'required',
 			'username' => 'required|string',
-            'password' => 'required|string|min:6', // Asegurar que se ingrese una contraseña válida
-            'email_inst' => 'required|string',
+            'password' => 'nullable|min:6',
 			'rol_id' => 'required',
-            'estado' => 'required|in:activo,inactivo',
-			'fecha_creacion' => 'required',
+			'estado' => 'required|string',
         ];
     }
 }

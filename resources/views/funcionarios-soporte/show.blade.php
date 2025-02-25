@@ -21,7 +21,7 @@
                     <div class="card-body bg-white">
 
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Funcionario :</strong>
+                                    <strong>Funcionario Id:</strong>
                                     {{ $funcionariosSoporte->funcionario_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
@@ -29,11 +29,11 @@
                                     {{ $funcionariosSoporte->username }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>password:</strong>
+                                    <strong>Password:</strong>
                                     {{ $funcionariosSoporte->password }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Rol :</strong>
+                                    <strong>Rol Id:</strong>
                                     {{ $funcionariosSoporte->rol_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">

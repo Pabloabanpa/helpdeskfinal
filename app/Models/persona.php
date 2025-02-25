@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Persona extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -31,7 +31,17 @@ class Persona extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre_persona', 'apellido_persona', 'email_persona', 'telefono_persona', 'ci_persona', 'direccion_persona', 'fecha_nacimiento_persona'];
 
+     protected $fillable = ['nombre_persona', 'apellido_persona', 'email_persona', 'telefono_persona', 'ci_persona', 'direccion_persona', 'fecha_nacimiento_persona'];
+
+     public function funcionarios()
+    {
+        return $this->hasOne(Funcionario::class, 'persona_id', 'id');
+    }
+    
+    public function getNombreCompletoAttribute()
+    {
+        return $this->nombre_persona . ' ' . $this->apellido_persona;
+    }
 
 }

@@ -51,7 +51,7 @@
                                             <td>{{ $index + 1 }}</td>
 
                                             <!-- Mostrando el nombre del funcionario en lugar del ID -->
-                                            <td>{{ $solicitude->funcionario?->persona?->nombre ?? 'No asignado' }}</td>
+                                            <td>{{ $solicitude->funcionario?->username ?? 'No asignado' }}</td>
 
                                             <td>{{ $solicitude->equipo_id ?? 'N/A' }}</td>
                                             <td>{{ $solicitude->descripcion_solicitud }}</td>
@@ -69,7 +69,7 @@
                                             <td>{{ \Carbon\Carbon::parse($solicitude->fecha_creacion)->format('d/m/Y') }}</td>
 
                                             <!-- Mostrando el nombre del funcionario soporte en lugar del ID -->
-                                            <td>{{ $solicitude->funcionarioSoporte?->persona?->nombre ?? 'No asignado' }}</td>
+                                            <td>{{ $solicitude->funcionarioSoporte?->username ?? 'No asignado' }}</td>
 
                                             <td>
                                                 <form action="{{ route('solicitudes.destroy', $solicitude->id) }}" method="POST">

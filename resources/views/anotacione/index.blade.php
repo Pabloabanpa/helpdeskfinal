@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Funcionarios Soportes
+    Anotaciones
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Funcionarios Soportes') }}
+                                {{ __('Anotaciones') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('funcionarios-soportes.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('anotaciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -35,32 +35,31 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-									<th >Username</th>
-                                    <th >Password</th>
-									<th >Rol </th>
-									<th >Estado</th>
+                                        
+									<th >Atencion Id</th>
+									<th >Funcionarios Soportes Id</th>
+									<th >Descripcion</th>
+									<th >Material Usado</th>
 									<th >Fecha Creacion</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($funcionariosSoportes as $funcionariosSoporte)
+                                    @foreach ($anotaciones as $anotacione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-
-										<td >{{ $funcionariosSoporte->username }}</td>
-                                        <td >{{ $funcionariosSoporte->password }}</td>
-										<td >{{ $funcionariosSoporte->rol_id }}</td>
-										<td >{{ $funcionariosSoporte->estado }}</td>
-										<td >{{ $funcionariosSoporte->fecha_creacion }}</td>
+                                            
+										<td >{{ $anotacione->atencion_id }}</td>
+										<td >{{ $anotacione->funcionarios_soportes_id }}</td>
+										<td >{{ $anotacione->descripcion }}</td>
+										<td >{{ $anotacione->material_usado }}</td>
+										<td >{{ $anotacione->fecha_creacion }}</td>
 
                                             <td>
-                                                <form action="{{ route('funcionarios-soportes.destroy', $funcionariosSoporte->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('funcionarios-soportes.show', $funcionariosSoporte->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('funcionarios-soportes.edit', $funcionariosSoporte->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('anotaciones.destroy', $anotacione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('anotaciones.show', $anotacione->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('anotaciones.edit', $anotacione->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -73,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $funcionariosSoportes->withQueryString()->links() !!}
+                {!! $anotaciones->withQueryString()->links() !!}
             </div>
         </div>
     </div>

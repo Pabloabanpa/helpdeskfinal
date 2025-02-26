@@ -19,10 +19,10 @@
                     </div>
 
                     <div class="card-body bg-white">
-                        
+
                                 <div class="form-group mb-2 mb20">
                                     <strong>Funcionario Id:</strong>
-                                    {{ $solicitude->funcionario_id }}
+                                    {{ $solicitude->funcionario?->username }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Equipo Id:</strong>
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Funcionarios Soportes Id:</strong>
-                                    {{ $solicitude->funcionarios_soportes_id }}
+                                    {{ $solicitude->funcionarioSoporte?->username }}
                                 </div>
 
                     </div>

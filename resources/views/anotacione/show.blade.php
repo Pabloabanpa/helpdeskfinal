@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $funcionariosSoporte->name ?? __('Show') . " " . __('Funcionarios Soporte') }}
+    {{ $anotacione->name ?? __('Show') . " " . __('Anotacione') }}
 @endsection
 
 @section('content')
@@ -11,38 +11,34 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Funcionarios Soporte</span>
+                            <span class="card-title">{{ __('Show') }} Anotacione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('funcionarios-soportes.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('anotaciones.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
-
+                        
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Funcionario Id:</strong>
-                                    {{ $funcionariosSoporte->funcionario?->username }}
+                                    <strong>Atencion Id:</strong>
+                                    {{ $anotacione->atencion_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Username:</strong>
-                                    {{ $funcionariosSoporte->username }}
+                                    <strong>Funcionarios Soportes Id:</strong>
+                                    {{ $anotacione->funcionarios_soportes_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Password:</strong>
-                                    {{ $funcionariosSoporte->password }}
+                                    <strong>Descripcion:</strong>
+                                    {{ $anotacione->descripcion }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Rol Id:</strong>
-                                    {{ $funcionariosSoporte->rol_id }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Estado:</strong>
-                                    {{ $funcionariosSoporte->estado }}
+                                    <strong>Material Usado:</strong>
+                                    {{ $anotacione->material_usado }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Fecha Creacion:</strong>
-                                    {{ $funcionariosSoporte->fecha_creacion }}
+                                    {{ $anotacione->fecha_creacion }}
                                 </div>
 
                     </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atencione;
+use App\Models\FuncionariosSoporte;
+use App\Models\Solicitude;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AtencioneRequest;
@@ -28,8 +30,11 @@ class AtencioneController extends Controller
     public function create(): View
     {
         $atencione = new Atencione();
+        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios
+        $solicitude = Solicitude::all(); // Obtener solicitudes
 
-        return view('atencione.create', compact('atencione'));
+
+        return view('atencione.create', compact('atencione', 'funcionariosSoporte', 'solicitude'));
     }
 
     /**
@@ -59,8 +64,10 @@ class AtencioneController extends Controller
     public function edit($id): View
     {
         $atencione = Atencione::find($id);
+        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
+        $solicitude = Solicitude::all(); // Obtener solicitudes
 
-        return view('atencione.edit', compact('atencione'));
+        return view('atencione.edit', compact('atencione', 'funcionariosSoporte', 'solicitude'));
     }
 
     /**

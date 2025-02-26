@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController; // Se agrega el controlador de Role
 use App\Http\Controllers\FuncionariosSoporteController; // Se agrega el controlador de FuncionariosSoporte
 use App\Http\Controllers\SolicitudeController;  // Se agrega el controlador de Solicitudes
 use App\Http\Controllers\AtencioneController; // Se agrega el controlador de Atenciones
+use App\Http\Controllers\AnotacioneController; // Se agrega el controlador de Anotaciones   
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FuncionarioController;
@@ -29,3 +30,4 @@ Route::resource('roles', RoleController::class);
 Route::resource('funcionarios-soportes', FuncionariosSoporteController::class);
 Route::resource('solicitudes', SolicitudeController::class);
 Route::resource('atenciones', AtencioneController::class);
+Route::resource('anotaciones', AnotacioneController::class);

@@ -58,7 +58,7 @@
                                         <td>{{ $funcionario->password }}</td>
                                         <td>{{ $funcionario->email_inst }}</td>
                                         <td>{{ $funcionario->cargo }}</td>
-                                        <td>{{ optional($funcionario->oficina)->nombre ?? 'No asignado' }}</td>
+                                        <td>{{ $funcionario->oficina }}</td>
                                         <td>{{ $funcionario->imagen }}</td>
                                         <td>{{ $funcionario->celular }}</td>
                                         <td>{{ $funcionario->estado }}</td>

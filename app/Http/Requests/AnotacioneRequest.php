@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AtencioneRequest extends FormRequest
+class AnotacioneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,10 @@ class AtencioneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'solicitud_id' => 'required|integer|exists:solicitudes,id',
-            'funcionarios_soportes_id' => 'nullable|integer|exists:funcionarios_soportes,id',
-            'descripcion' => 'nullable|string',
-            'estado' => 'required|string|in:en espera,en proceso,finalizada,cancelada',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
+			'atencion_id' => 'required',
+			'descripcion' => 'string',
+			'material_usado' => 'string',
+			'fecha_creacion' => 'required',
         ];
     }
 }

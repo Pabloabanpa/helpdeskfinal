@@ -43,7 +43,6 @@
                                 <div class="form-group mb-2 mb20">
                                     <strong>Oficina:</strong>
                                     {{ $funcionario->oficina }}
-                                </div>
                                 <div class="form-group mb-2 mb20">
                                     <label class="form-label">{{ __('Imagen de Perfil') }}</label>
                                     <div class="d-flex justify-content-start">

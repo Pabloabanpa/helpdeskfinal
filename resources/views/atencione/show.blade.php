@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $funcionariosSoporte->name ?? __('Show') . " " . __('Funcionarios Soporte') }}
+    {{ $atencione->name ?? __('Show') . " " . __('Atencione') }}
 @endsection
 
 @section('content')
@@ -11,38 +11,38 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Funcionarios Soporte</span>
+                            <span class="card-title">{{ __('Show') }} Atencione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('funcionarios-soportes.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('atenciones.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
-
+                        
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Funcionario Id:</strong>
-                                    {{ $funcionariosSoporte->funcionario?->username }}
+                                    <strong>Solicitud Id:</strong>
+                                    {{ $atencione->solicitud_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Username:</strong>
-                                    {{ $funcionariosSoporte->username }}
+                                    <strong>Funcionarios Soportes Id:</strong>
+                                    {{ $atencione->funcionarios_soportes_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Password:</strong>
-                                    {{ $funcionariosSoporte->password }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Rol Id:</strong>
-                                    {{ $funcionariosSoporte->rol_id }}
+                                    <strong>Descripcion:</strong>
+                                    {{ $atencione->descripcion }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Estado:</strong>
-                                    {{ $funcionariosSoporte->estado }}
+                                    {{ $atencione->estado }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Fecha Creacion:</strong>
-                                    {{ $funcionariosSoporte->fecha_creacion }}
+                                    <strong>Fecha Inicio:</strong>
+                                    {{ $atencione->fecha_inicio }}
+                                </div>
+                                <div class="form-group mb-2 mb20">
+                                    <strong>Fecha Fin:</strong>
+                                    {{ $atencione->fecha_fin }}
                                 </div>
 
                     </div>

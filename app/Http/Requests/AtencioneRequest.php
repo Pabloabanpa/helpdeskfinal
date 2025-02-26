@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FuncionariosSoporteRequest extends FormRequest
+class AtencioneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,12 @@ class FuncionariosSoporteRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'funcionario_id' => 'required',
-			'username' => 'required|string',
-            'password' => 'nullable|min:6',
-			'rol_id' => 'required',
-			'estado' => 'required|string',
+            'solicitud_id' => 'required|integer|exists:solicitudes,id',
+            'funcionarios_soportes_id' => 'nullable|integer|exists:funcionarios_soportes,id',
+            'descripcion' => 'nullable|string',
+            'estado' => 'required|string|in:en espera,en proceso,finalizada,cancelada',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
         ];
     }
 }

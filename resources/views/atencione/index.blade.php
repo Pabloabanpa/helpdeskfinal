@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Funcionarios Soportes
+    Atenciones
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Funcionarios Soportes') }}
+                                {{ __('Atenciones') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('funcionarios-soportes.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('atenciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -35,32 +35,33 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-									<th >Username</th>
-                                    <th >Password</th>
-									<th >Rol </th>
+                                        
+									<th >Solicitud Id</th>
+									<th >Funcionarios Soportes Id</th>
+									<th >Descripcion</th>
 									<th >Estado</th>
-									<th >Fecha Creacion</th>
+									<th >Fecha Inicio</th>
+									<th >Fecha Fin</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($funcionariosSoportes as $funcionariosSoporte)
+                                    @foreach ($atenciones as $atencione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-
-										<td >{{ $funcionariosSoporte->username }}</td>
-                                        <td >{{ $funcionariosSoporte->password }}</td>
-										<td >{{ $funcionariosSoporte->rol_id }}</td>
-										<td >{{ $funcionariosSoporte->estado }}</td>
-										<td >{{ $funcionariosSoporte->fecha_creacion }}</td>
+                                            
+										<td >{{ $atencione->solicitud_id }}</td>
+										<td >{{ $atencione->funcionarios_soportes_id }}</td>
+										<td >{{ $atencione->descripcion }}</td>
+										<td >{{ $atencione->estado }}</td>
+										<td >{{ $atencione->fecha_inicio }}</td>
+										<td >{{ $atencione->fecha_fin }}</td>
 
                                             <td>
-                                                <form action="{{ route('funcionarios-soportes.destroy', $funcionariosSoporte->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('funcionarios-soportes.show', $funcionariosSoporte->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('funcionarios-soportes.edit', $funcionariosSoporte->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('atenciones.destroy', $atencione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('atenciones.show', $atencione->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('atenciones.edit', $atencione->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -73,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $funcionariosSoportes->withQueryString()->links() !!}
+                {!! $atenciones->withQueryString()->links() !!}
             </div>
         </div>
     </div>

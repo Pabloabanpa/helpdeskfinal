@@ -23,6 +23,7 @@ class AnotacioneRequest extends FormRequest
     {
         return [
 			'atencion_id' => 'required',
+            'funcionarios_soportes_id' => 'required',
 			'descripcion' => 'string',
 			'material_usado' => 'string',
 			'fecha_creacion' => 'required',

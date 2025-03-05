@@ -80,6 +80,22 @@
             {!! $errors->first('funcionarios_soportes_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+<!-- Campo tipo_solicitudes con opciones predefinidas -->
+<div class="form-group mb-2 mb20">
+    <label for="tipo_solicitud" class="form-label">{{ __('Tipo De Solicitud') }}</label>
+    <select name="tipo_solicitud" id="tipo_solicitud" class="form-control @error('tipo_solicitud') is-invalid @enderror">
+        <option value="incidencia_hardware" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'incidencia_hardware' ? 'selected' : '' }}>Incidencia de Hardware</option>
+        <option value="incidencia_software" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'incidencia_software' ? 'selected' : '' }}>Incidencia de Software</option>
+        <option value="conectividad_redes" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'conectividad_redes' ? 'selected' : '' }}>Conectividad y Redes</option>
+        <option value="instalacion_configuracion" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'instalacion_configuracion' ? 'selected' : '' }}>Instalación y Configuración</option>
+        <option value="acceso_permisos" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'acceso_permisos' ? 'selected' : '' }}>Acceso y Permisos</option>
+        <option value="mantenimiento_preventivo" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'mantenimiento_preventivo' ? 'selected' : '' }}>Mantenimiento Preventivo</option>
+        <option value="consultas_capacitacion" {{ old('tipo_solicitud', $solicitude?->tipo_solicitud) == 'consultas_capacitacion' ? 'selected' : '' }}>Consultas y Capacitación</option>
+    </select>
+    {!! $errors->first('tipo_solicitud', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+</div>
+
+
     </div>
     <div class="col-md-12 mt20 mt-2">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>

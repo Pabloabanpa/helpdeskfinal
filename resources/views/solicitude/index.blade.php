@@ -42,6 +42,7 @@
                                         <th>Estado</th>
                                         <th>Fecha Creación</th>
                                         <th>Funcionario de Soporte</th>
+                                        <th>Tipo de Solicitud</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -70,6 +71,7 @@
 
                                             <!-- Mostrando el nombre del funcionario soporte en lugar del ID -->
                                             <td>{{ $solicitude->funcionarioSoporte?->username ?? 'No asignado' }}</td>
+                                            <td>{{ $solicitude?->tipo_solicitud ?? 'No asignado' }}</td>
 
                                             <td>
                                                 <form action="{{ route('solicitudes.destroy', $solicitude->id) }}" method="POST">

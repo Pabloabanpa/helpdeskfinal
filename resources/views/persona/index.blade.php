@@ -15,12 +15,13 @@
                             <span id="card_title">
                                 {{ __('Personas') }}
                             </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('personas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                            <div class="float-right">
+                                <a href="#" id="cargarPersonasCreate" class="btn btn-primary btn-round">
+                                  <i class="now-ui-icons users_single-02"></i>
+                                  Crear una nueva Persona
                                 </a>
                               </div>
+
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -80,4 +81,23 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+          $('#cargarPersonasCreate').on('click', function(e) {
+            e.preventDefault(); // Evita que el enlace navegue
+            $.ajax({
+              url: "{{ route('persona.create') }}",
+              method: 'GET',
+              success: function(data) {
+                $('#contenido').html(data); // Inyecta el contenido en el contenedor
+              },
+              error: function() {
+                alert('Error al cargar el contenido.');
+              }
+            });
+          });
+        });
+      </script>
+
+
 @endsection

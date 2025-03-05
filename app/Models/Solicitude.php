@@ -15,7 +15,8 @@ class Solicitude extends Model
         'archivo',
         'estado',
         'fecha_creacion',
-        'funcionarios_soportes_id'
+        'funcionarios_soportes_id',
+        'tipo_solicitud'
     ];
 
     public function funcionario()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anotacione;
+use App\Models\FuncionariosSoporte;
+use App\Models\Atencione;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AnotacioneRequest;
@@ -28,8 +30,12 @@ class AnotacioneController extends Controller
     public function create(): View
     {
         $anotacione = new Anotacione();
+        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
+        $atencione = Atencione::all(); // Obtener anotaciones
 
-        return view('anotacione.create', compact('anotacione'));
+
+
+        return view('anotacione.create', compact('anotacione', 'funcionariosSoporte', 'atencione'));
     }
 
     /**
@@ -59,8 +65,11 @@ class AnotacioneController extends Controller
     public function edit($id): View
     {
         $anotacione = Anotacione::find($id);
+        $atencione = Atencione::all(); // Obtener anotaciones
+        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
 
-        return view('anotacione.edit', compact('anotacione'));
+
+        return view('anotacione.edit', compact('anotacione', 'funcionariosSoporte', 'atencione'));
     }
 
     /**

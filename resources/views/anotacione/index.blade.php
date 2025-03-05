@@ -35,7 +35,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 									<th >Atencion Id</th>
 									<th >Funcionarios Soportes Id</th>
 									<th >Descripcion</th>
@@ -49,7 +49,7 @@
                                     @foreach ($anotaciones as $anotacione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 										<td >{{ $anotacione->atencion_id }}</td>
 										<td >{{ $anotacione->funcionarios_soportes_id }}</td>
 										<td >{{ $anotacione->descripcion }}</td>

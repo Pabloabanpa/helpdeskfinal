@@ -17,9 +17,10 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('funcionarios-soportes.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
+                                <a href="#" id="cargarFuncionarioSoporteCreate" class="btn btn-primary btn-round">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    Crear un nuevo Funcionario de Soporte
+                                  </a>
                               </div>
                         </div>
                     </div>
@@ -39,6 +40,7 @@
 									<th >Username</th>
                                     <th >Password</th>
 									<th >Rol </th>
+                                    <th >Nivel de Atencion</th>
 									<th >Estado</th>
 									<th >Fecha Creacion</th>
 
@@ -54,6 +56,7 @@
 										<td >{{ $funcionariosSoporte->username }}</td>
                                         <td >{{ $funcionariosSoporte->password }}</td>
 										<td >{{ $funcionariosSoporte->rol_id }}</td>
+                                        <td >{{ $funcionariosSoporte->nivel_atencion }}</td>
 										<td >{{ $funcionariosSoporte->estado }}</td>
 										<td >{{ $funcionariosSoporte->fecha_creacion }}</td>
 
@@ -77,4 +80,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+          $('#cargarFuncionarioSoporteCreate').on('click', function(e) {
+            e.preventDefault(); // Evita que el enlace navegue
+            $.ajax({
+              url: "{{ route('funcionarios-soporte.create') }}",
+              method: 'GET',
+              success: function(data) {
+                $('#contenido').html(data); // Inyecta el contenido en el contenedor
+              },
+              error: function() {
+                alert('Error al cargar el contenido.');
+              }
+            });
+          });
+        });
+      </script>
 @endsection

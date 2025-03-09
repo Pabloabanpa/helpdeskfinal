@@ -102,6 +102,7 @@
     </div>
 </div>
 
+
 <!-- JavaScript para alternar la visibilidad de los campos -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {

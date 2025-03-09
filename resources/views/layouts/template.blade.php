@@ -20,6 +20,7 @@
 <!-- Scripts  -->
 @yield('scripts')
 
+@yield('scripts_redirect')
 
 </body>
 

@@ -1,6 +1,10 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
 
+        <div class="float-right">
+            <a class="btn btn-primary btn-sm" href="{{ route('dashboard') }}"> {{ __('Back') }}</a>
+        </div>
+
         <div class="form-group mb-2 mb20">
             <label for="solicitud_id" class="form-label">{{ __('Solicitud Id') }}</label>
             <select name="solicitud_id" id="solicitud_id" class="form-control @error('solicitud_id') is-invalid @enderror">

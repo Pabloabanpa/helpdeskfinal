@@ -17,9 +17,10 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('oficinas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
+                                <a href="#" id="cargarOficinaCreate" class="btn btn-primary btn-round">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    Crear un nueva oficina
+                                  </a>
                               </div>
                         </div>
                     </div>
@@ -35,7 +36,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 									<th >Nombre</th>
 									<th >Direccion</th>
 									<th >Telefono</th>
@@ -48,7 +49,7 @@
                                     @foreach ($oficinas as $oficina)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 										<td >{{ $oficina->nombre }}</td>
 										<td >{{ $oficina->direccion }}</td>
 										<td >{{ $oficina->telefono }}</td>
@@ -74,4 +75,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+          $('#cargarOficinaCreate').on('click', function(e) {
+            e.preventDefault(); // Evita que el enlace navegue
+            $.ajax({
+              url: "{{ route('oficina.create') }}",
+              method: 'GET',
+              success: function(data) {
+                $('#contenido').html(data); // Inyecta el contenido en el contenedor
+              },
+              error: function() {
+                alert('Error al cargar el contenido.');
+              }
+            });
+          });
+        });
+      </script>
 @endsection

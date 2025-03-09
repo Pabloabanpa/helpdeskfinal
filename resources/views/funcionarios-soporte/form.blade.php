@@ -55,6 +55,16 @@
             {!! $errors->first('rol_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+        <!-- Campo para seleccionar el nivel de atencion (Redes/Desarrollo/Soporte tecnico) -->
+        <div class="form-group mb-2 mb20">
+            <label for="nivel_atencion" class="form-label">{{ __('Nivel de Atencion') }}</label>
+            <select name="nivel_atencion" id="nivel_atencion" class="form-control @error('nivel_atencion') is-invalid @enderror">
+                <option value="Redes" {{ old('nivel_atencion', $funcionariosSoporte?->nivel_atencion) == 'Redes' ? 'selected' : '' }}>Redes</option>
+                <option value="Desarrollo" {{ old('nivel_atencion', $funcionariosSoporte?->nivel_atencion) == 'Desarrollo' ? 'selected' : '' }}>Desarrollo</option>
+                <option value="Soporte Técnico" {{ old('nivel_atencion', $funcionariosSoporte?->nivel_atencion) == 'Soporte Técnico' ? 'selected' : '' }}>Soporte Técnico</option>
+
+            </select>
+
         <!-- Campo para seleccionar el estado (Activo/Inactivo) -->
         <div class="form-group mb-2 mb20">
             <label for="estado" class="form-label">{{ __('Estado') }}</label>

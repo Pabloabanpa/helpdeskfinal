@@ -37,6 +37,10 @@
                                     {{ $funcionariosSoporte->rol_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
+                                    <strong>Nivel de Atencion:</strong>
+                                    {{ $funcionariosSoporte->nivel_atencion }}
+                                </div>
+                                <div class="form-group mb-2 mb20">
                                     <strong>Estado:</strong>
                                     {{ $funcionariosSoporte->estado }}
                                 </div>

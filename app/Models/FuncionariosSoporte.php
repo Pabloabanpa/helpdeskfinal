@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $username
  * @property $password
  * @property $rol_id
+ * @property $nivel_atencion
  * @property $estado
  * @property $fecha_creacion
  * @property $created_at
@@ -32,7 +33,7 @@ class FuncionariosSoporte extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['funcionario_id','username','password', 'rol_id', 'estado', 'fecha_creacion'];
+    protected $fillable = ['funcionario_id','username','password','nivel_atencion', 'rol_id', 'estado', 'fecha_creacion'];
 
 
     /**

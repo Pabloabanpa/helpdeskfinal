@@ -300,7 +300,7 @@
 
  <!-- Navbar  -->
  @section('navbar')
- <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-absolute">
     <div class="container-fluid">
       <div class="navbar-wrapper">
         <div class="navbar-toggle">
@@ -310,7 +310,7 @@
             <span class="navbar-toggler-bar bar3"></span>
           </button>
         </div>
-        <a class="navbar-brand" href="#pablo">Dashboard</a>
+        <a class="navbar-brand" >Dashboard Administrativo</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -442,9 +442,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-      Now UI Dashboard by Creative Tim
-    </title>
+    <title> Help Desk    </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Montserrat:400,700,200')}}" rel="stylesheet" />
@@ -460,10 +458,7 @@
  <!--  Conteido -->
  @section('contenido')
  <div id="contenido">
-
 </div>
-
-
  @endsection
 
   <!-- Scripts -->
@@ -489,9 +484,13 @@
       demo.initDashboardPageCharts();
     });
   </script>
+  @endsection
 
+
+
+  @section('scripts_redirect')
 <!--Script para mostrar persona.index en el div  -->
-  <script>
+<script>
     $(document).ready(function(){
       $('#cargarPersonas').on('click', function(e) {
         e.preventDefault(); // Evita que el enlace navegue
@@ -528,6 +527,23 @@
     });
   </script>
 
+<script>
+    $(document).ready(function(){
+      $('#cargarFuncionarioCreate').on('click', function(e) {
+        e.preventDefault(); // Evita que el enlace navegue
+        $.ajax({
+          url: "{{ route('funcionarios.create') }}",
+          method: 'GET',
+          success: function(data) {
+            $('#contenido').html(data); // Inyecta el contenido en el contenedor
+          },
+          error: function() {
+            alert('Error al cargar el contenido.');
+          }
+        });
+      });
+    });
+  </script>
 <!--Script para mostrar funcionario-soporte.index en el div  -->
 <script>
     $(document).ready(function(){
@@ -602,6 +618,7 @@
   </script>
 <!--Script para mostrar atencione.index en el div  -->
 <script>
+
     $(document).ready(function(){
       $('#cargarAtenciones').on('click', function(e) {
         e.preventDefault();
@@ -620,4 +637,12 @@
   </script>
 
 
-  @endsection
+
+
+
+
+
+
+
+
+@endsection

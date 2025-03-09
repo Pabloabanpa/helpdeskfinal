@@ -17,9 +17,12 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('funcionarios.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
+                                <div class="float-right">
+                                    <a href="#" id="cargarFuncionarioCreate" class="btn btn-primary btn-round">
+                                      <i class="now-ui-icons users_single-02"></i>
+                                      Crear un nuevo Funcionario
+                                    </a>
+                                  </div>
                               </div>
                         </div>
                     </div>
@@ -86,4 +89,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+          $('#cargarFuncionarioCreate').on('click', function(e) {
+            e.preventDefault(); // Evita que el enlace navegue
+            $.ajax({
+              url: "{{ route('funcionarios.create') }}",
+              method: 'GET',
+              success: function(data) {
+                $('#contenido').html(data); // Inyecta el contenido en el contenedor
+              },
+              error: function() {
+                alert('Error al cargar el contenido.');
+              }
+            });
+          });
+        });
+      </script>
 @endsection

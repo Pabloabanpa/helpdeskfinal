@@ -16,9 +16,10 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('solicitudes.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
+                                <a href="#" id="cargarSolicitudeCreate" class="btn btn-primary btn-round">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    Crear una nueva solicitud de atencion
+                                  </a>
                               </div>
                         </div>
                     </div>
@@ -100,4 +101,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+          $('#cargarSolicitudeCreate').on('click', function(e) {
+            e.preventDefault(); // Evita que el enlace navegue
+            $.ajax({
+              url: "{{ route('solicitude.create') }}",
+              method: 'GET',
+              success: function(data) {
+                $('#contenido').html(data); // Inyecta el contenido en el contenedor
+              },
+              error: function() {
+                alert('Error al cargar el contenido.');
+              }
+            });
+          });
+        });
+      </script>
+
 @endsection

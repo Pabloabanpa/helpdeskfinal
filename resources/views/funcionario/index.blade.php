@@ -39,11 +39,9 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>Email Inst</th>
                                         <th>Cargo</th>
                                         <th>Oficina</th>
-                                        <th>Imagen</th>
                                         <th>Celular</th>
                                         <th>Estado</th>
                                         <th>Rol Personal</th>
@@ -58,11 +56,9 @@
 
                                         <!-- Mostrar el nombre en base al ID -->
                                         <td>{{ $funcionario->username }}</td>
-                                        <td>{{ $funcionario->password }}</td>
                                         <td>{{ $funcionario->email_inst }}</td>
                                         <td>{{ $funcionario->cargo }}</td>
                                         <td>{{ $funcionario->oficina }}</td>
-                                        <td>{{ $funcionario->imagen }}</td>
                                         <td>{{ $funcionario->celular }}</td>
                                         <td>{{ $funcionario->estado }}</td>
                                         <td>{{ optional($funcionario->role)->nombre ?? 'No asignado' }}</td>

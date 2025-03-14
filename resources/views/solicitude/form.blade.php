@@ -1,6 +1,9 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-
+        <div class="float-right">
+            <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
+        </div>
+    </div>
         <!-- Selección de Funcionario -->
         <div class="form-group mb-2 mb20">
             <label for="funcionario_id" class="form-label">{{ __('Funcionario') }}</label>
@@ -65,20 +68,6 @@
             {!! $errors->first('fecha_creacion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        <!-- Selección de Funcionario de Soporte -->
-        <div class="form-group mb-2 mb20">
-            <label for="funcionarios_soportes_id" class="form-label">{{ __('Funcionario de Soporte') }}</label>
-            <select name="funcionarios_soportes_id" id="funcionarios_soportes_id" class="form-control @error('funcionarios_soportes_id') is-invalid @enderror">
-                <option value="" disabled selected>Seleccione un funcionario de soporte</option>
-                @foreach ($funcionariosSoporte as $funcionario)
-                    <option value="{{ $funcionario->id }}"
-                        {{ old('funcionarios_soportes_id', $solicitude?->funcionarios_soportes_id) == $funcionario->id ? 'selected' : '' }}>
-                        {{ $funcionario->username ?? 'Sin Username' }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('funcionarios_soportes_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
 
 <!-- Campo tipo_solicitudes con opciones predefinidas -->
 <div class="form-group mb-2 mb20">

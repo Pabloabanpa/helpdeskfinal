@@ -53,7 +53,7 @@
                                             <td>{{ ++$i }}</td>
 
 										<td >{{ $atencione->solicitud_id }}</td>
-										<td >{{ $atencione->funcionarios_soportes_id }}</td>
+										<td >{{ $atencione->funcionario_id }}</td>
 										<td >{{ $atencione->descripcion }}</td>
 										<td >{{ $atencione->estado }}</td>
 										<td >{{ $atencione->fecha_inicio }}</td>

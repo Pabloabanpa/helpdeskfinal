@@ -42,7 +42,6 @@
                                         <th>Archivo</th>
                                         <th>Estado</th>
                                         <th>Fecha Creación</th>
-                                        <th>Funcionario de Soporte</th>
                                         <th>Tipo de Solicitud</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -71,17 +70,13 @@
                                             <td>{{ \Carbon\Carbon::parse($solicitude->fecha_creacion)->format('d/m/Y') }}</td>
 
                                             <!-- Mostrando el nombre del funcionario soporte en lugar del ID -->
-                                            <td>{{ $solicitude->funcionarioSoporte?->username ?? 'No asignado' }}</td>
                                             <td>{{ $solicitude?->tipo_solicitud ?? 'No asignado' }}</td>
 
                                             <td>
                                                 <form action="{{ route('solicitudes.destroy', $solicitude->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('solicitudes.show', $solicitude->id) }}">
-                                                        <i class="fa fa-fw fa-eye"></i> {{ __('Show') }}
-                                                    </a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('solicitudes.edit', $solicitude->id) }}">
-                                                        <i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}
-                                                    </a>
+                                                    <a class="btn btn-sm btn-primary " href="#" id="cargarASolicitudeShow"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success " href="#" id="cargarSolicitudeEdit"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"
@@ -119,5 +114,43 @@
           });
         });
       </script>
+      <!-- Scripts de redireccion a show -->
+<script>
+    $(document).ready(function(){
+      $('#cargarASolicitudeShow').on('click', function(e) {
+        e.preventDefault(); // Evita que el enlace navegue
+        $.ajax({
+          url: "{{ route('solicitude.show', $solicitude->id) }}",
+          method: 'GET',
+          success: function(data) {
+            $('#contenido').html(data); // Inyecta el contenido en el contenedor
+          },
+          error: function() {
+            alert('Error al cargar el contenido.');
+          }
+        });
+      });
+    });
+  </script>
+
+<!-- Scripts de redireccion a edit -->
+<script>
+    $(document).ready(function(){
+      $('#cargarSolicitudeEdit').on('click', function(e) {
+        e.preventDefault(); // Evita que el enlace navegue
+        $.ajax({
+          url: "{{ route('solicitude.edit', $solicitude->id) }}",
+          method: 'GET',
+          success: function(data) {
+            $('#contenido').html(data); // Inyecta el contenido en el contenedor
+          },
+          error: function() {
+            alert('Error al cargar el contenido.');
+          }
+        });
+      });
+    });
+  </script>
+ 
 
 @endsection

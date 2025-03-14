@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Solicitude;
 use App\Models\Funcionario;
-use App\Models\FuncionariosSoporte;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\SolicitudeRequest;
@@ -32,9 +31,8 @@ class SolicitudeController extends Controller
      {
          $solicitude = new Solicitude();
          $funcionarios = Funcionario::all(); // Obtener funcionarios normales
-         $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
 
-         return view('solicitude.create', compact('solicitude', 'funcionarios', 'funcionariosSoporte'));
+         return view('solicitude.create', compact('solicitude', 'funcionarios'));
      }
 
 
@@ -74,9 +72,8 @@ class SolicitudeController extends Controller
     {
         $solicitude = Solicitude::with('funcionario', 'funcionarioSoporte')->findOrFail($id);
         $funcionarios = Funcionario::all();
-        $funcionariosSoporte = FuncionariosSoporte::all();
 
-        return view('solicitude.edit', compact('solicitude', 'funcionarios', 'funcionariosSoporte'));
+        return view('solicitude.edit', compact('solicitude', 'funcionarios'));
     }
     /**
      * Update the specified resource in storage.

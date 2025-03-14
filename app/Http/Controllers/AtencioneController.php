@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atencione;
-use App\Models\FuncionariosSoporte;
+use App\Models\Funcionario;
 use App\Models\Solicitude;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,11 +30,11 @@ class AtencioneController extends Controller
     public function create(): View
     {
         $atencione = new Atencione();
-        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios
+        $funcionarios = Funcionario::all(); // Obtener funcionarios normales
         $solicitude = Solicitude::all(); // Obtener solicitudes
 
 
-        return view('atencione.create', compact('atencione', 'funcionariosSoporte', 'solicitude'));
+        return view('atencione.create', compact('atencione', 'funcionarios', 'solicitude'));
     }
 
     /**
@@ -44,7 +44,7 @@ class AtencioneController extends Controller
     {
         Atencione::create($request->validated());
 
-        return Redirect::route('atenciones.index')
+        return Redirect::route('dashboard')
             ->with('success', 'Atencione created successfully.');
     }
 
@@ -64,10 +64,10 @@ class AtencioneController extends Controller
     public function edit($id): View
     {
         $atencione = Atencione::find($id);
-        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
+        $funcionarios = Funcionario::all(); // Obtener funcionarios normales
         $solicitude = Solicitude::all(); // Obtener solicitudes
 
-        return view('atencione.edit', compact('atencione', 'funcionariosSoporte', 'solicitude'));
+        return view('atencione.edit', compact('atencione', 'funcionarios', 'solicitude'));
     }
 
     /**
@@ -77,7 +77,7 @@ class AtencioneController extends Controller
     {
         $atencione->update($request->validated());
 
-        return Redirect::route('atenciones.index')
+        return Redirect::route('dashboard')
             ->with('success', 'Atencione updated successfully');
     }
 

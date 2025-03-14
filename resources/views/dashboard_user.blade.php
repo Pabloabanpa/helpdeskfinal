@@ -1,5 +1,30 @@
 @extends('layouts.template')
 
+ <!-- Scripts -->
+ @section('scripts')
+
+ <!--   Core JS Files   -->
+ <script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
+ <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
+ <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
+ <script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+ <!--  Google Maps Plugin    -->
+ <script src="{{asset('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')}}"></script>
+ <!-- Chart JS -->
+ <script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
+ <!--  Notifications Plugin    -->
+ <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
+ <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+ <script src="{{asset('assets/js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+ <script src="{{asset('assets/demo/demo.js')}}"></script>
+ <script>
+   $(document).ready(function() {
+     // Javascript method's body can be found in assets/js/demos.js
+     demo.initDashboardPageCharts();
+   });
+ </script>
+ @endsection
+
 <!--  Conteido Para Pruebas-->
  @section('contenido_prueba')
  <div class="panel-header panel-header-lg">
@@ -310,7 +335,7 @@
             <span class="navbar-toggler-bar bar3"></span>
           </button>
         </div>
-        <a class="navbar-brand" >Dashboard Administrativo</a>
+        <a class="navbar-brand" >Dashboard Usuario</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -379,33 +404,6 @@
         </div>
         <div class="sidebar-wrapper" id="sidebar-wrapper">
           <ul class="nav">
-            <li>
-                <a href="#" id="cargarPersonas">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>Personas</p>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" id="cargarFuncionario">
-                  <i class="now-ui-icons business_badge"></i>
-                  <p>Funcionario</p>
-                </a>
-              </li>
-
-            <li>
-              <a href="#" id="cargarOficina">
-                <i class="now-ui-icons business_bank"></i>
-                <p>Oficinas</p>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" id="cargarRole">
-                <i class="now-ui-icons ui-1_lock-circle-open"></i>
-                <p>Roles</p>
-              </a>
-            </li>
 
             <li>
               <a href="#" id="cargarSolicitudes">
@@ -414,9 +412,9 @@
               </a>
             </li>
             <li>
-                <a href="#" id="cargarAtenciones">
-                  <i class="now-ui-icons education_paper"></i>
-                  <p>Atenciones</p>
+                <a href="#" id="cargarSolicitudes">
+                  <i class="now-ui-icons files_single-copy-04"></i>
+                  <p>Reportes</p>
                 </a>
               </li>
 
@@ -451,36 +449,11 @@
  @section('contenido')
  <div id="contenido">
 </div>
- @endsection
-
-  <!-- Scripts -->
-  @section('scripts')
-
-  <!--   Core JS Files   -->
-  <script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
-  <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
-  <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
-  <script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="{{asset('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')}}"></script>
-  <!-- Chart JS -->
-  <script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
-  <!--  Notifications Plugin    -->
-  <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{asset('assets/js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="{{asset('assets/demo/demo.js')}}"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-    });
-  </script>
   @endsection
 
 
 
-  @section('scripts_redirect')
+@section('scripts_redirect')
 <!--Script para mostrar persona.index en el div  -->
 <script>
     $(document).ready(function(){

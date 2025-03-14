@@ -1,10 +1,12 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
 
-        <div class="float-right">
-            <a class="btn btn-primary btn-sm" href="{{ route('dashboard') }}"> {{ __('Back') }}</a>
-        </div>
-
+    </div>
+    <div class="float-right">
+        <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
+    </div>
+</div>
+        <!-- Selección de Solicitud -->
         <div class="form-group mb-2 mb20">
             <label for="solicitud_id" class="form-label">{{ __('Solicitud Id') }}</label>
             <select name="solicitud_id" id="solicitud_id" class="form-control @error('solicitud_id') is-invalid @enderror">
@@ -20,19 +22,21 @@
             {!! $errors->first('solicitud_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <!-- Selección de Funcionario de Soporte -->
+        <!-- Selección de Funcionario -->
         <div class="form-group mb-2 mb20">
-            <label for="funcionarios_soportes_id" class="form-label">{{ __('Funcionario de Soporte') }}</label>
-            <select name="funcionarios_soportes_id" id="funcionarios_soportes_id" class="form-control @error('funcionarios_soportes_id') is-invalid @enderror">
-                <option value="" disabled selected>Seleccione un funcionario de soporte</option>
-                @foreach ($funcionariosSoporte as $funcionario)
+            <label for="funcionario_id" class="form-label">{{ __('Funcionario') }}</label>
+            <select name="funcionario_id" id="funcionario_id" class="form-control @error('funcionario_id') is-invalid @enderror">
+                <option value="" disabled selected>Seleccione un funcionario</option>
+                @foreach ($funcionarios as $funcionario)
                     <option value="{{ $funcionario->id }}"
-                        {{ old('funcionarios_soportes_id', $atencione?->funcionarios_soportes_id) == $atencione->id ? 'selected' : '' }}>
-                        {{ $funcionario->username ?? 'Sin Username' }}
+                        {{ old('funcionario_id', $atencione?->funcionario_id) == $funcionario->id ? 'selected' : '' }}>
+                        {{ $funcionario?->username ?? 'Sin Username' }}
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('funcionarios_soportes_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            {!! $errors->first('funcionario_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-2 mb20">
             <label for="descripcion" class="form-label">{{ __('Descripcion') }}</label>
             <input type="text" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror" value="{{ old('descripcion', $atencione?->descripcion) }}" id="descripcion" placeholder="Descripcion de la Atencion">
@@ -62,7 +66,7 @@
         </div>
 
     </div>
-    <div class="col-md-12 mt20 mt-2">
+    <div class="col-md-12 mt20 mt-2" href= "dashboard">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>

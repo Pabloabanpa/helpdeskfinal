@@ -23,7 +23,7 @@ class AtencioneRequest extends FormRequest
     {
         return [
             'solicitud_id' => 'required|integer|exists:solicitudes,id',
-            'funcionarios_soportes_id' => 'nullable|integer|exists:funcionarios_soportes,id',
+            'funcionario_id' => 'nullable|integer|exists:funcionarios,id',
             'descripcion' => 'nullable|string',
             'estado' => 'required|string|in:en espera,en proceso,finalizada,cancelada',
             'fecha_inicio' => 'required|date',

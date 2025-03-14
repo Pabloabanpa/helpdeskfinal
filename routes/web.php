@@ -3,23 +3,33 @@
 use App\Http\Controllers\PersonaController; // Se agrega el controlador de Persona
 use App\Http\Controllers\OficinaController; // Se agrega el controlador de Oficina
 use App\Http\Controllers\RoleController; // Se agrega el controlador de Role
-use App\Http\Controllers\FuncionariosSoporteController; // Se agrega el controlador de FuncionariosSoporte
 use App\Http\Controllers\SolicitudeController;  // Se agrega el controlador de Solicitudes
 use App\Http\Controllers\AtencioneController; // Se agrega el controlador de Atenciones
 use App\Http\Controllers\AnotacioneController; // Se agrega el controlador de Anotaciones
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FuncionarioController;
 
 
 
+Route::get('login',[LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login',[LoginController::class, 'login']);
+Route::post('logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 
 Route::get('dashboard', function () {
     return view('dashboard');
+});
+Route::get('/', function () {
+    return view('dashboard_user');
+})->name('dashboard_user');
+
+Route::get('dashboard_user', function () {
+    return view('dashboard_user');
 });
 
 Auth::routes();
@@ -31,7 +41,6 @@ Route::resource('personas', PersonaController::class);
 Route::resource('oficinas', OficinaController::class);
 Route::resource('funcionarios', FuncionarioController::class);
 Route::resource('roles', RoleController::class);
-Route::resource('funcionarios-soportes', FuncionariosSoporteController::class);
 Route::resource('solicitudes', SolicitudeController::class);
 Route::resource('atenciones', AtencioneController::class);
 Route::resource('anotaciones', AnotacioneController::class);
@@ -61,12 +70,6 @@ Route::get('role/index', [RoleController::class, 'index'])->name('role.index');
 Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
 Route::get('role/edit', [RoleController::class, 'edit'])->name('role.edit');
 Route::get('role/show', [RoleController::class, 'show'])->name('role.show');
-
-//Rutas de funcionarios soporte
-Route::get('funcionarios-soporte/index', [FuncionariosSoporteController::class, 'index'])->name('funcionarios-soporte.index');
-Route::get('funcionarios-soporte/create', [FuncionariosSoporteController::class, 'create'])->name('funcionarios-soporte.create');
-Route::get('funcionarios-soporte/edit', [FuncionariosSoporteController::class, 'edit'])->name('funcionarios-soporte.edit');
-Route::get('funcionarios-soporte/show', [FuncionariosSoporteController::class, 'show'])->name('funcionarios-soporte.show');
 
 //Rutas de solicitudes
 Route::get('solicitude/index', [SolicitudeController::class, 'index'])->name('solicitude.index');

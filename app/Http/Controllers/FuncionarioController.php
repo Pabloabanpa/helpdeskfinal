@@ -61,8 +61,8 @@ class FuncionarioController extends Controller
 
         Funcionario::create($validatedData);
 
-        return Redirect::route('funcionarios.index')
-            ->with('success', 'Funcionario creado correctamente.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');;
     }
 
     /**
@@ -115,8 +115,8 @@ class FuncionarioController extends Controller
 
         $funcionario->update($validatedData);
 
-        return Redirect::route('funcionarios.index')
-            ->with('success', 'Funcionario actualizado correctamente.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     /**
@@ -133,7 +133,7 @@ class FuncionarioController extends Controller
 
         $funcionario->delete();
 
-        return Redirect::route('funcionarios.index')
-            ->with('success', 'Funcionario eliminado correctamente.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 }

@@ -45,7 +45,7 @@ class AtencioneController extends Controller
         Atencione::create($request->validated());
 
         return Redirect::route('dashboard')
-            ->with('success', 'Atencione created successfully.');
+            ->with('success', 'successfully.');
     }
 
     /**
@@ -78,14 +78,14 @@ class AtencioneController extends Controller
         $atencione->update($request->validated());
 
         return Redirect::route('dashboard')
-            ->with('success', 'Atencione updated successfully');
+            ->with('success', 'successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Atencione::find($id)->delete();
 
-        return Redirect::route('atenciones.index')
-            ->with('success', 'Atencione deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 }

@@ -5,137 +5,138 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="container mx-auto mt-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <!-- Encabezado -->
+        <div class="flex justify-between items-center bg-gradient-to-r from-orange-700 to-red-500 p-4 rounded-md text-white shadow-md">
+            <h4 class="text-lg font-semibold tracking-wide">{{ __('Atenciones') }}</h4>
+            <a href="#" class="cargarAtencioneCreate bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+                <i class="fa fa-plus"></i> Nueva Atención
+            </a>
+        </div>
 
-                            <span id="card_title">
-                                {{ __('Atenciones') }}
-                            </span>
-
-                             <div class="float-right">
-                                <a href="#" id="cargarAtencioneCreate" class="btn btn-primary btn-round">
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    Crear una nueva atencion
-                                  </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-
-									<th >Solicitud Id</th>
-									<th >Funcionarios Soportes Id</th>
-									<th >Descripcion</th>
-									<th >Estado</th>
-									<th >Fecha Inicio</th>
-									<th >Fecha Fin</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($atenciones as $atencione)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-
-										<td >{{ $atencione->solicitud_id }}</td>
-										<td >{{ $atencione->funcionario_id }}</td>
-										<td >{{ $atencione->descripcion }}</td>
-										<td >{{ $atencione->estado }}</td>
-										<td >{{ $atencione->fecha_inicio }}</td>
-										<td >{{ $atencione->fecha_fin }}</td>
-
-                                            <td>
-                                                <form action="{{ route('atenciones.destroy', $atencione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="#" id="cargarAtencioneShow"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="#" id="cargarAtencioneEdit"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $atenciones->withQueryString()->links() !!}
+        <!-- Mensaje de éxito -->
+        @if ($message = Session::get('success'))
+            <div class="bg-green-100 text-green-800 p-3 rounded-lg mt-4 shadow-sm">
+                <p>{{ $message }}</p>
             </div>
+        @endif
+
+        <!-- Tabla de Atenciones -->
+        <div class="overflow-x-auto mt-4">
+            <table class="w-full border rounded-lg shadow-md bg-white">
+                <thead class="bg-gray-200 text-gray-700 uppercase text-sm tracking-wide">
+                    <tr>
+                        <th class="p-3">#</th>
+                        <th class="p-3">Solicitud</th>
+                        <th class="p-3">Funcionario</th>
+                        <th class="p-3">Descripción</th>
+                        <th class="p-3">Estado</th>
+                        <th class="p-3">Fecha Inicio</th>
+                        <th class="p-3">Fecha Fin</th>
+                        <th class="p-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @foreach ($atenciones as $index => $atencione)
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="p-3 text-center">{{ $index + 1 }}</td>
+                            <td class="p-3 text-center">{{ $atencione->solicitud_id }}</td>
+                            <td class="p-3 text-center">{{ $atencione->funcionario_id }}</td>
+                            <td class="p-3">{{ $atencione->descripcion }}</td>
+                            <td class="p-3 text-center font-semibold">{{ ucfirst($atencione->estado) }}</td>
+                            <td class="p-3 text-center">{{ \Carbon\Carbon::parse($atencione->fecha_inicio)->format('d/m/Y') }}</td>
+                            <td class="p-3 text-center">{{ \Carbon\Carbon::parse($atencione->fecha_fin)->format('d/m/Y') }}</td>
+                            <td class="p-3 flex justify-center space-x-2">
+                                <!-- Botón Ver -->
+                                <a href="#" class="cargarAtencioneShow bg-blue-500 text-white px-3 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
+                                   data-id="{{ $atencione->id }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+
+                                <!-- Botón Editar -->
+                                <a href="#" class="cargarAtencioneEdit bg-yellow-500 text-white px-3 py-2 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300"
+                                   data-id="{{ $atencione->id }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <!-- Botón Eliminar -->
+                                <form action="{{ route('atenciones.destroy', $atencione->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+                                        onclick="event.preventDefault(); confirm('¿Eliminar esta atención?') ? this.closest('form').submit() : false;">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="flex justify-center mt-4">
+            {!! $atenciones->withQueryString()->links() !!}
         </div>
     </div>
+</div>
 
-
-    <!-- Scripts de redireccion a create -->
-    <script>
-        $(document).ready(function(){
-          $('#cargarAtencioneCreate').on('click', function(e) {
-            e.preventDefault(); // Evita que el enlace navegue
+<!-- Scripts AJAX -->
+<script>
+    $(document).ready(function(){
+        // Crear Atención
+        $(document).on('click', '.cargarAtencioneCreate', function(e) {
+            e.preventDefault();
             $.ajax({
-              url: "{{ route('atencione.create') }}",
-              method: 'GET',
-              success: function(data) {
-                $('#contenido').html(data); // Inyecta el contenido en el contenedor
-              },
-              error: function() {
-                alert('Error al cargar el contenido.');
-              }
+                url: "{{ route('atencione.create') }}",
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
             });
-          });
         });
-      </script>
 
-<!-- Scripts de redireccion a show -->
-<script>
-    $(document).ready(function(){
-      $('#cargarAtencioneShow').on('click', function(e) {
-        e.preventDefault(); // Evita que el enlace navegue
-        $.ajax({
-          url: "{{ route('atenciones.show', $atencione->id) }}",
-          method: 'GET',
-          success: function(data) {
-            $('#contenido').html(data); // Inyecta el contenido en el contenedor
-          },
-          error: function() {
-            alert('Error al cargar el contenido.');
-          }
-        });
-      });
-    });
-  </script>
+        // Editar Atención
+        $(document).on('click', '.cargarAtencioneEdit', function(e) {
+            e.preventDefault();
 
-<!-- Scripts de redireccion a edit -->
-<script>
-    $(document).ready(function(){
-      $('#cargarAtencioneEdit').on('click', function(e) {
-        e.preventDefault(); // Evita que el enlace navegue
-        $.ajax({
-          url: "{{ route('atenciones.edit', $atencione->id) }}",
-          method: 'GET',
-          success: function(data) {
-            $('#contenido').html(data); // Inyecta el contenido en el contenedor
-          },
-          error: function() {
-            alert('Error al cargar el contenido.');
-          }
+            let atencionId = $(this).data('id'); // Obtener ID de la atención
+
+            $.ajax({
+                url: `/atenciones/${atencionId}/edit`, // URL con el ID dinámico
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
+            });
         });
-      });
+
+        // Ver Atención
+        $(document).on('click', '.cargarAtencioneShow', function(e) {
+            e.preventDefault();
+
+            let atencionId = $(this).data('id'); // Obtener ID de la atención
+
+            $.ajax({
+                url: `/atenciones/${atencionId}`, // URL con el ID dinámico
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
+            });
+        });
     });
-  </script>
+</script>
 
 @endsection

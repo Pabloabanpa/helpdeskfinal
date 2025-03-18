@@ -30,7 +30,6 @@ class AnotacioneController extends Controller
     public function create(): View
     {
         $anotacione = new Anotacione();
-        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
         $atencione = Atencione::all(); // Obtener anotaciones
 
 
@@ -45,8 +44,8 @@ class AnotacioneController extends Controller
     {
         Anotacione::create($request->validated());
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione created successfully.');
+        return Redirect::route('dashboard')
+            ->with('success', ' successfully.');
     }
 
     /**
@@ -66,7 +65,6 @@ class AnotacioneController extends Controller
     {
         $anotacione = Anotacione::find($id);
         $atencione = Atencione::all(); // Obtener anotaciones
-        $funcionariosSoporte = FuncionariosSoporte::all(); // Obtener funcionarios de soporte
 
 
         return view('anotacione.edit', compact('anotacione', 'funcionariosSoporte', 'atencione'));
@@ -79,15 +77,15 @@ class AnotacioneController extends Controller
     {
         $anotacione->update($request->validated());
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione updated successfully');
+        return Redirect::route('dashboard')
+        ->with('success', ' successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Anotacione::find($id)->delete();
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', ' successfully.');
     }
 }

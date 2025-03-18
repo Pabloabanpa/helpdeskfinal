@@ -25,8 +25,8 @@ Route::get('dashboard', function () {
     return view('dashboard');
 });
 Route::get('/', function () {
-    return view('dashboard_user');
-})->name('dashboard_user');
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('dashboard_user', function () {
     return view('dashboard_user');
@@ -44,6 +44,7 @@ Route::resource('roles', RoleController::class);
 Route::resource('solicitudes', SolicitudeController::class);
 Route::resource('atenciones', AtencioneController::class);
 Route::resource('anotaciones', AnotacioneController::class);
+
 
 // rutas para el controladores en vistas
 
@@ -74,8 +75,19 @@ Route::get('role/show', [RoleController::class, 'show'])->name('role.show');
 //Rutas de solicitudes
 Route::get('solicitude/index', [SolicitudeController::class, 'index'])->name('solicitude.index');
 Route::get('solicitude/create', [SolicitudeController::class, 'create'])->name('solicitude.create');
-Route::get('solicitude/edit', [SolicitudeController::class, 'edit'])->name('solicitude.edit');
+Route::get('solicitudes/{id}/edit', [SolicitudeController::class, 'edit'])->name('solicitudes.edit');
 Route::get('solicitude/show', [SolicitudeController::class, 'show'])->name('solicitude.show');
+Route::put('solicitudes/{solicitude}', [SolicitudeController::class, 'update'])->name('solicitudes.update');
+
+// Rutas de solicitudes (CRUD)
+Route::resource('solicitudes', SolicitudeController::class);
+
+// Rutas manuales adicionales (si las necesitas)
+Route::get('solicitudes/{id}/edit', [SolicitudeController::class, 'edit'])->name('solicitudes.edit');
+Route::put('solicitudes/{id}', [SolicitudeController::class, 'update'])->name('solicitudes.update');
+Route::delete('solicitudes/{id}', [SolicitudeController::class, 'destroy'])->name('solicitudes.destroy');
+
+
 
 //Rutas de atenciones
 Route::get('atencione/index', [AtencioneController::class, 'index'])->name('atencione.index');

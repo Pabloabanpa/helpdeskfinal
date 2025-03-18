@@ -5,92 +5,123 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="container mx-auto mt-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <!-- Encabezado -->
+        <div class="flex justify-between items-center bg-gradient-to-r from-[#1e40af] to-[#60a5fa] p-4 rounded-md text-white shadow-md">
+            <h4 class="text-lg font-semibold tracking-wide">{{ __('Oficinas') }}</h4>
+            <a href="#" id="cargarOficinaCreate" class="bg-[#22c55e] text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                <i class="fa fa-plus"></i> Nueva Oficina
+            </a>
+        </div>
 
-                            <span id="card_title">
-                                {{ __('Oficinas') }}
-                            </span>
-
-                             <div class="float-right">
-                                <a href="#" id="cargarOficinaCreate" class="btn btn-primary btn-round">
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    Crear un nueva oficina
-                                  </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-
-									<th >Nombre</th>
-									<th >Direccion</th>
-									<th >Telefono</th>
-									<th >Encargado</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($oficinas as $oficina)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-
-										<td >{{ $oficina->nombre }}</td>
-										<td >{{ $oficina->direccion }}</td>
-										<td >{{ $oficina->telefono }}</td>
-										<td >{{ $oficina->encargado }}</td>
-
-                                            <td>
-                                                <form action="{{ route('oficinas.destroy', $oficina->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('oficinas.show', $oficina->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('oficinas.edit', $oficina->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $oficinas->withQueryString()->links() !!}
+        <!-- Mensaje de éxito -->
+        @if ($message = Session::get('success'))
+            <div class="bg-green-100 text-green-800 p-3 rounded-lg mt-4 shadow-sm">
+                <p>{{ $message }}</p>
             </div>
+        @endif
+
+        <!-- Tabla de Oficinas -->
+        <div class="overflow-x-auto mt-4">
+            <table class="w-full border rounded-lg shadow-md bg-white">
+                <thead class="bg-gray-200 text-gray-700 uppercase text-sm tracking-wide">
+                    <tr>
+                        <th class="p-3">#</th>
+                        <th class="p-3">Nombre</th>
+                        <th class="p-3">Dirección</th>
+                        <th class="p-3">Teléfono</th>
+                        <th class="p-3">Encargado</th>
+                        <th class="p-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-800">
+                    @foreach ($oficinas as $index => $oficina)
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="p-3 text-center">{{ $index + 1 }}</td>
+                            <td class="p-3">{{ $oficina->nombre }}</td>
+                            <td class="p-3">{{ $oficina->direccion }}</td>
+                            <td class="p-3 text-center">{{ $oficina->telefono }}</td>
+                            <td class="p-3">{{ $oficina->encargado }}</td>
+                            <td class="p-3 flex justify-center space-x-2">
+                                <a href="#" class="cargarOficinaShow bg-gray-600 text-white px-3 py-2 rounded-lg shadow-md hover:bg-gray-700 transition duration-300" data-id="{{ $oficina->id }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="#" class="cargarOficinaEdit bg-[#facc15] text-white px-3 py-2 rounded-lg shadow-md hover:bg-yellow-500 transition duration-300" data-id="{{ $oficina->id }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <form action="{{ route('oficinas.destroy', $oficina->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-[#ef4444] text-white px-3 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+                                        onclick="event.preventDefault(); confirm('¿Eliminar esta oficina?') ? this.closest('form').submit() : false;">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="flex justify-center mt-4">
+            {!! $oficinas->withQueryString()->links() !!}
         </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function(){
-          $('#cargarOficinaCreate').on('click', function(e) {
-            e.preventDefault(); // Evita que el enlace navegue
+<!-- Scripts AJAX -->
+<script>
+    $(document).ready(function(){
+        // Cargar creación de oficina
+        $('#cargarOficinaCreate').on('click', function(e) {
+            e.preventDefault();
             $.ajax({
-              url: "{{ route('oficina.create') }}",
-              method: 'GET',
-              success: function(data) {
-                $('#contenido').html(data); // Inyecta el contenido en el contenedor
-              },
-              error: function() {
-                alert('Error al cargar el contenido.');
-              }
+                url: "{{ route('oficina.create') }}",
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
             });
-          });
         });
-      </script>
+
+        // Cargar vista de una oficina específica
+        $(document).on('click', '.cargarOficinaShow', function(e) {
+            e.preventDefault();
+            let oficinaId = $(this).data('id');
+            $.ajax({
+                url: `/oficinas/${oficinaId}`,
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
+            });
+        });
+
+        // Cargar edición de una oficina específica
+        $(document).on('click', '.cargarOficinaEdit', function(e) {
+            e.preventDefault();
+            let oficinaId = $(this).data('id');
+            $.ajax({
+                url: `/oficinas/${oficinaId}/edit`,
+                method: 'GET',
+                success: function(data) {
+                    $('#contenido').html(data);
+                },
+                error: function() {
+                    alert('Error al cargar el contenido.');
+                }
+            });
+        });
+    });
+</script>
+
 @endsection

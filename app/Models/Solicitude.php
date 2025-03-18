@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Solicitude extends Model
 {
+    use HasFactory;
+
     protected $perPage = 20;
 
     protected $fillable = [
@@ -15,24 +18,15 @@ class Solicitude extends Model
         'archivo',
         'estado',
         'fecha_creacion',
-        'funcionarios_soportes_id',
         'tipo_solicitud'
+    ];
+
+    protected $casts = [
+        'fecha_creacion' => 'date', // Convierte la fecha automáticamente
     ];
 
     public function funcionario()
     {
         return $this->belongsTo(Funcionario::class, 'funcionario_id', 'id');
     }
-
-    public function funcionarioSoporte()
-    {
-        return $this->belongsTo(FuncionariosSoporte::class, 'funcionarios_soportes_id', 'id');
-    }
-
-    // Método para obtener el username del funcionario de soporte
-    public function getUsernameFuncionarioSoporteAttribute()
-    {
-        return optional($this->funcionarioSoporte)->username ?? 'Sin Username';
-    }
 }
-

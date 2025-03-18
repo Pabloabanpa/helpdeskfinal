@@ -39,8 +39,8 @@ class PersonaController extends Controller
     {
         Persona::create($request->validated());
 
-        return Redirect::route('personas.index')
-            ->with('success', 'Persona created successfully.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     /**
@@ -70,15 +70,15 @@ class PersonaController extends Controller
     {
         $persona->update($request->validated());
 
-        return Redirect::route('personas.index')
-            ->with('success', 'Persona updated successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Persona::find($id)->delete();
 
-        return Redirect::route('personas.index')
-            ->with('success', 'Persona deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 }

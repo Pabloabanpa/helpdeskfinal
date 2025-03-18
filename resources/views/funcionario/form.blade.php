@@ -1,131 +1,127 @@
-<!-- Contenedor principal del formulario con estructura de filas y columnas -->
-<div class="row padding-1 p-1">
-    <div class="col-md-12">
-
-        <!-- Campo para seleccionar una persona -->
-        <div class="form-group mb-2 mb20">
-            <label for="persona" class="form-label">{{ __('Persona') }}</label>
-            <select name="persona" class="form-control @error('persona') is-invalid @enderror" id="persona">
-                <option value="">Selecciona una persona</option>
-                @foreach ($personas as $persona)
-                    <option value="{{ $persona->id }}"
-                        {{ old('persona', $funcionario?->persona) == $persona->id ? 'selected' : '' }}>
-                        {{ $persona->nombre_persona }} {{ $persona->apellido_persona }}
-                    </option>
-                @endforeach
-            </select>
-            <!-- Muestra errores si hay problemas con la selección de persona -->
-            {!! $errors->first('persona', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+<div class="container mx-auto mt-4 max-w-2xl">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="text-center text-white bg-blue-500 p-4 rounded-md">
+            <h4 class="text-xl font-semibold">{{ __('Registro de Funcionario') }}</h4>
         </div>
 
-        <!-- Campo de entrada para el nombre de usuario -->
-        <div class="form-group mb-2 mb20">
-            <label for="username" class="form-label">{{ __('Username') }}</label>
-            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
-            value="{{ old('username', $funcionario?->username) }}" id="username" placeholder="Usuario">
-            {!! $errors->first('username', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo de entrada para la contraseña -->
-        <div class="form-group mb-2 mb20">
-            <label for="password" class="form-label">{{ __('Contraseña') }}</label>
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                id="password" placeholder="Ingresa tu contraseña">
-            {!! $errors->first('password', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo de entrada para el correo institucional -->
-        <div class="form-group mb-2 mb20">
-            <label for="email_inst" class="form-label">{{ __('Email Inst') }}</label>
-            <input type="text" name="email_inst" class="form-control @error('email_inst') is-invalid @enderror"
-            value="{{ old('email_inst', $funcionario?->email_inst) }}" id="email_inst" placeholder="Email Inst">
-            {!! $errors->first('email_inst', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo de entrada para el cargo del funcionario -->
-        <div class="form-group mb-2 mb20">
-            <label for="cargo" class="form-label">{{ __('Cargo') }}</label>
-            <input type="text" name="cargo" class="form-control @error('cargo') is-invalid @enderror"
-            value="{{ old('cargo', $funcionario?->cargo) }}" id="cargo" placeholder="Cargo">
-            {!! $errors->first('cargo', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo para seleccionar la oficina -->
-        <div class="form-group mb-2 mb20">
-            <label for="oficina" class="form-label">{{ __('Oficina') }}</label>
-            <select name="oficina" class="form-control @error('oficina') is-invalid @enderror" id="oficina">
-                <option value="">Selecciona una oficina</option>
-                @foreach ($oficinas as $oficina)
-                    <option value="{{ $oficina->id }}"
-                        {{ old('oficina', $funcionario?->oficina) == $oficina->id ? 'selected' : '' }}>
-                        {{ $oficina->nombre }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('oficina', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo para subir una imagen de perfil -->
-        <div class="form-group mb-2 mb20">
-            <label for="imagen" class="form-label">{{ __('Imagen de Perfil') }}</label>
-            <input type="file" name="imagen" class="form-control @error('imagen') is-invalid @enderror"
-            id="imagen" accept="image/*">
-            {!! $errors->first('imagen', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Muestra la imagen actual del funcionario si existe -->
-        @if(isset($funcionario->imagen))
-            <div class="mt-2">
-                <img src="{{ asset('storage/' . $funcionario->imagen) }}" width="150" alt="Imagen de perfil">
+        <div class="mt-4">
+            <!-- Selección de Persona -->
+            <div class="mb-4">
+                <label for="persona" class="font-semibold text-gray-700">{{ __('Persona') }}</label>
+                <select name="persona" id="persona" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                    <option value="">Selecciona una persona</option>
+                    @foreach ($personas as $persona)
+                        <option value="{{ $persona->id }}" {{ old('persona', $funcionario?->persona) == $persona->id ? 'selected' : '' }}>
+                            {{ $persona->nombre_persona }} {{ $persona->apellido_persona }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-        @endif
 
-        <!-- Campo de entrada para el celular -->
-        <div class="form-group mb-2 mb20">
-            <label for="celular" class="form-label">{{ __('Celular') }}</label>
-            <input type="text" name="celular" class="form-control @error('celular') is-invalid @enderror"
-            value="{{ old('celular', $funcionario?->celular) }}" id="celular" placeholder="Celular">
-            {!! $errors->first('celular', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <!-- Username -->
+            <div class="mb-4">
+                <label for="username" class="font-semibold text-gray-700">{{ __('Nombre de Usuario') }}</label>
+                <input type="text" name="username" id="username" placeholder="Ingrese el nombre de usuario"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('username', $funcionario?->username) }}">
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-4">
+                <label for="password" class="font-semibold text-gray-700">{{ __('Contraseña') }}</label>
+                <input type="password" name="password" id="password" placeholder="Ingrese una contraseña"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+            </div>
+
+            <!-- Email Institucional -->
+            <div class="mb-4">
+                <label for="email_inst" class="font-semibold text-gray-700">{{ __('Correo Institucional') }}</label>
+                <input type="email" name="email_inst" id="email_inst" placeholder="Ingrese el email institucional"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('email_inst', $funcionario?->email_inst) }}">
+            </div>
+
+            <!-- Cargo -->
+            <div class="mb-4">
+                <label for="cargo" class="font-semibold text-gray-700">{{ __('Cargo') }}</label>
+                <input type="text" name="cargo" id="cargo" placeholder="Ingrese el cargo"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('cargo', $funcionario?->cargo) }}">
+            </div>
+
+            <!-- Selección de Oficina -->
+            <div class="mb-4">
+                <label for="oficina" class="font-semibold text-gray-700">{{ __('Oficina') }}</label>
+                <select name="oficina" id="oficina" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                    <option value="">Selecciona una oficina</option>
+                    @foreach ($oficinas as $oficina)
+                        <option value="{{ $oficina->id }}" {{ old('oficina', $funcionario?->oficina) == $oficina->id ? 'selected' : '' }}>
+                            {{ $oficina->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Imagen de Perfil -->
+            <div class="mb-4">
+                <label class="font-semibold text-gray-700">{{ __('Imagen de Perfil') }}</label>
+                <div class="w-full border-2 border-dashed border-blue-500 rounded-lg p-6 text-center bg-gray-100 hover:bg-gray-200 transition duration-300 cursor-pointer">
+                    <input type="file" name="imagen" id="imagen" accept="image/*" class="hidden">
+                    <label for="imagen" class="text-blue-600 font-medium cursor-pointer">
+                        Click para subir una imagen
+                    </label>
+                </div>
+                <!-- Previsualización de la imagen -->
+                @if(isset($funcionario->imagen))
+                    <div class="mt-4 text-center">
+                        <img src="{{ asset('storage/' . $funcionario->imagen) }}" width="150" class="rounded-lg shadow-md">
+                    </div>
+                @endif
+            </div>
+
+            <!-- Celular -->
+            <div class="mb-4">
+                <label for="celular" class="font-semibold text-gray-700">{{ __('Celular') }}</label>
+                <input type="text" name="celular" id="celular" placeholder="Ingrese el número de celular"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('celular', $funcionario?->celular) }}">
+            </div>
+
+            <!-- Estado -->
+            <div class="mb-4">
+                <label for="estado" class="font-semibold text-gray-700">{{ __('Estado') }}</label>
+                <select name="estado" id="estado" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                    <option value="activo" {{ old('estado', $funcionario?->estado) == 'activo' ? 'selected' : '' }}>Activo</option>
+                    <option value="inactivo" {{ old('estado', $funcionario?->estado) == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Rol -->
+            <div class="mb-4">
+                <label for="rol_personal" class="font-semibold text-gray-700">{{ __('Rol') }}</label>
+                <select name="rol_personal" id="rol_personal" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                    <option value="">Selecciona un rol</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" {{ old('rol_personal', $funcionario?->rol_personal) == $role->id ? 'selected' : '' }}>
+                            {{ $role->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Fecha de Creación -->
+            <div class="mb-4">
+                <label for="fecha_creacion" class="font-semibold text-gray-700">{{ __('Fecha de Creación') }}</label>
+                <input type="date" name="fecha_creacion" id="fecha_creacion"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('fecha_creacion', $funcionario?->fecha_creacion) }}">
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                    {{ __('Guardar Funcionario') }}
+                </button>
+            </div>
         </div>
-
-        <!-- Campo de entrada para el estado -->
-        <div class="form-group mb-2 mb20">
-            <label for="estado" class="form-label">{{ __('Estado') }}</label>
-            <select name="estado" class="form-control @error('estado') is-invalid @enderror" id="estado">
-                <option value="activo" {{ old('estado', $funcionario?->estado) == 'activo' ? 'selected' : '' }}>Activo</option>
-                <option value="inactivo" {{ old('estado', $funcionario?->estado) == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-            </select>
-
-            {!! $errors->first('estado', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <div class="form-group mb-2 mb20">
-            <label for="rol_personal" class="form-label">{{ __('Rol') }}</label>
-            <select name="rol_personal" class="form-control @error('rol_personal') is-invalid @enderror" id="rol_personal">
-                <option value="">Selecciona un rol</option>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}" {{ old('rol_personal', $funcionario?->rol_personal) == $role->id ? 'selected' : '' }}>
-                        {{ $role->nombre }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('rol_personal', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-
-        <!-- Campo de entrada para la fecha de creación -->
-        <div class="form-group mb-2 mb20">
-            <label for="fecha_creacion" class="form-label">{{ __('Fecha Creación') }}</label>
-            <input type="date" name="fecha_creacion" class="form-control @error('fecha_creacion') is-invalid @enderror"
-            value="{{ old('fecha_creacion', $funcionario?->fecha_creacion) }}" id="fecha_creacion"
-            placeholder="Selecciona una fecha">
-            {!! $errors->first('fecha_creacion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-    </div>
-
-    <!-- Botón para enviar el formulario -->
-    <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>

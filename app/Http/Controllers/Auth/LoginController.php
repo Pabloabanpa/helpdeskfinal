@@ -5,39 +5,58 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Funcionario;
 
 class LoginController extends Controller
 {
+    // Mostrar el formulario de login
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('auth.login'); // Asegúrate de que la vista se llama así
     }
 
+    // Procesar el login
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
-        $user = \App\Models\Funcionario::where('username', $credentials['username'])->first();
+        // Validamos la solicitud
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|min:6',
+        ]);
 
-        if ($user && Hash::check($credentials['password'], $user->password)) {
-          Auth::guard('funcionario')->login($user);
-          return redirect()->route('dashboard');
+        // Mapeamos el input "email" al campo "email_inst"
+        $credentials = [
+            'email_inst' => $request->input('email'),
+            'password'   => $request->input('password')
+        ];
+
+        // Si usaste la opción A (guard web) o la opción B (guard funcionarios), ajusta según corresponda:
+        // Opción A:
+        if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
+            return redirect()->intended('/dashboard');
         }
 
-        return back()->whithErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ]);
+        // Opción B (si configuraste el guard "funcionarios"):
+        /*
+        if (Auth::guard('funcionarios')->attempt($credentials, $request->filled('remember'))) {
+            return redirect()->intended('/dashboard');
+        }
+        */
+
+        // Si la autenticación falla, se redirige de nuevo con un error
+        return back()->withErrors([
+            'email' => 'Las credenciales no coinciden con nuestros registros.',
+        ])->withInput($request->only('email', 'remember'));
     }
 
-
+    // Método para cerrar sesión
     public function logout(Request $request)
     {
-        Auth::guard('funcionario')->logout();
+        // Ajusta el guard según corresponda
+        Auth::guard('web')->logout();
+        // Auth::guard('funcionarios')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()->route('login');
+        return redirect('/login');
     }
 }

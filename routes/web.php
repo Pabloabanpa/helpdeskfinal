@@ -48,7 +48,17 @@ Route::resource('anotaciones', AnotacioneController::class);
 
 // rutas para el controladores en vistas
 
-//Rutas de persona
+
+
+    Route::get('personas', [PersonaController::class, 'index'])->name('personas.index');
+    Route::get('personas/create', [PersonaController::class, 'create'])->name('personas.create');
+    Route::get('personas/{id}/edit', [PersonaController::class, 'edit'])->name('personas.edit');
+    Route::get('personas/{id}', [PersonaController::class, 'show'])->name('personas.show');
+    Route::post('personas', [PersonaController::class, 'store'])->name('personas.store');
+    Route::put('personas/{id}', [PersonaController::class, 'update'])->name('personas.update');
+    Route::delete('personas/{id}', [PersonaController::class, 'destroy'])->name('personas.destroy');
+
+    //rutas para personas
 Route::get('persona/index', [PersonaController::class, 'index'])->name('persona.index');
 Route::get('persona/create', [PersonaController::class, 'create'])->name('persona.create');
 Route::get('persona/edit', [PersonaController::class, 'edit'])->name('persona.edit');
@@ -101,5 +111,11 @@ Route::get('anotacione/create', [AnotacioneController::class, 'create'])->name('
 Route::get('anotacione/edit', [AnotacioneController::class, 'edit'])->name('anotacione.edit');
 Route::get('anotacione/show', [AnotacioneController::class, 'show'])->name('anotacione.show');
 
+
+
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 

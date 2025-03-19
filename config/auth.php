@@ -40,7 +40,8 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'funcionarios' => [
+
+        'funcionario' => [
             'driver' => 'session',
             'provider' => 'funcionario',
         ],
@@ -68,7 +69,7 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'funcionarios' => [
+        'funcionario' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Funcionario::class),
         ],

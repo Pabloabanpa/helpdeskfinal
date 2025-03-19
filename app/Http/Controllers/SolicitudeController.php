@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class SolicitudeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:funcionario');
+
+    }
     /**
      * Muestra todas las solicitudes.
      */
@@ -77,7 +82,7 @@ class SolicitudeController extends Controller
 {
     $solicitude = Solicitude::findOrFail($id);
     $funcionarios = Funcionario::all();
-    
+
     return view('solicitude.edit', compact('solicitude', 'funcionarios'));
 }
 

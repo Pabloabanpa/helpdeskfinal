@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anotacione;
-use App\Models\FuncionariosSoporte;
 use App\Models\Atencione;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +12,11 @@ use Illuminate\View\View;
 
 class AnotacioneController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:funcionario');
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +38,7 @@ class AnotacioneController extends Controller
 
 
 
-        return view('anotacione.create', compact('anotacione', 'funcionariosSoporte', 'atencione'));
+        return view('anotacione.create', compact('anotacione', 'atencione'));
     }
 
     /**
@@ -67,7 +71,7 @@ class AnotacioneController extends Controller
         $atencione = Atencione::all(); // Obtener anotaciones
 
 
-        return view('anotacione.edit', compact('anotacione', 'funcionariosSoporte', 'atencione'));
+        return view('anotacione.edit', compact('anotacione', 'atencione'));
     }
 
     /**

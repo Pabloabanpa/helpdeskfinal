@@ -5,58 +5,61 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Funcionario;
 
 class LoginController extends Controller
 {
-    // Mostrar el formulario de login
+    /**
+     * Muestra el formulario de login.
+     */
     public function showLoginForm()
     {
-        return view('auth.login'); // Asegúrate de que la vista se llama así
+        return view('auth.login');
     }
 
-    // Procesar el login
+    /**
+     * Procesa el login.
+     */
     public function login(Request $request)
     {
-        // Validamos la solicitud
+        // Validar la entrada usando el campo "login" (que puede ser username o correo)
         $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|min:6',
+            'login' => 'required|string',
+            'password' => 'required|string|min:6',
         ]);
 
-        // Mapeamos el input "email" al campo "email_inst"
-        $credentials = [
-            'email_inst' => $request->input('email'),
-            'password'   => $request->input('password')
-        ];
+        // Capturar el valor ingresado (puede ser username o correo)
+        $loginInput = $request->input('login');
 
-        // Si usaste la opción A (guard web) o la opción B (guard funcionarios), ajusta según corresponda:
-        // Opción A:
-        if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->intended('/dashboard');
+        // Detectar si es un correo válido o un username
+        $fieldType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email_inst' : 'username';
+
+        // Buscar al funcionario en la base de datos usando el campo detectado
+        $user = Funcionario::where($fieldType, $loginInput)->first();
+
+        // Verificar que se encuentre el usuario y que la contraseña sea correcta
+        if ($user && Hash::check($request->input('password'), $user->password)) {
+            Auth::guard('funcionario')->login($user);
+            return redirect()->route('dashboard');
         }
 
-        // Opción B (si configuraste el guard "funcionarios"):
-        /*
-        if (Auth::guard('funcionarios')->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->intended('/dashboard');
-        }
-        */
-
-        // Si la autenticación falla, se redirige de nuevo con un error
+        // Si la autenticación falla, se retorna al formulario con error y se conserva el input
         return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ])->withInput($request->only('email', 'remember'));
+            'login' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('login', 'remember'));
     }
 
-    // Método para cerrar sesión
+    /**
+     * Cierra la sesión del funcionario.
+     */
     public function logout(Request $request)
     {
-        // Ajusta el guard según corresponda
-        Auth::guard('web')->logout();
-        // Auth::guard('funcionarios')->logout();
+        Auth::guard('funcionario')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+
+        return redirect()->route('login');
     }
 }

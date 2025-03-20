@@ -28,14 +28,14 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <!-- Campo Correo Electrónico -->
+            <!-- Campo Correo o Nombre de Usuario -->
             <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-semibold mb-1">Correo Electrónico</label>
-                <input type="email" name="email" id="email" value="{{ old('email') }}" required
+                <label for="login" class="block text-gray-700 font-semibold mb-1">Correo Electrónico o Nombre de Usuario</label>
+                <input type="text" name="login" id="login" value="{{ old('login') }}" required
                     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    placeholder="Ingrese su correo">
-                @if($errors->has('email'))
-                    <span class="text-red-600 text-sm">{{ $errors->first('email') }}</span>
+                    placeholder="Ingrese su correo o nombre de usuario">
+                @if($errors->has('login'))
+                    <span class="text-red-600 text-sm">{{ $errors->first('login') }}</span>
                 @endif
             </div>
 
@@ -50,15 +50,16 @@
                 @endif
             </div>
 
-            <!-- Recordar sesión y Olvidaste contraseña -->
+            <!-- Recordar sesión -->
             <div class="flex justify-between items-center mb-4">
                 <label class="flex items-center text-gray-600">
                     <input type="checkbox" name="remember" class="mr-2" {{ old('remember') ? 'checked' : '' }}>
                     Recordarme
                 </label>
-                <a href="{{ route('password.request') }}" class="text-red-600 text-sm hover:underline">
+                <!-- Si no implementas el restablecimiento de contraseña, elimina o comenta este enlace -->
+                <!-- <a href="{{ route('password.request') }}" class="text-red-600 text-sm hover:underline">
                     ¿Olvidaste tu contraseña?
-                </a>
+                </a> -->
             </div>
 
             <!-- Botón de Login -->

@@ -42,6 +42,7 @@ class Funcionario extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+    
         'persona',
         'username',
         'password',

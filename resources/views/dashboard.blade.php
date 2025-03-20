@@ -393,6 +393,14 @@
                 </a>
               </li>
 
+
+            <li>
+              <a href="#" id="cargarFuncionarioSoporte">
+                <i class="now-ui-icons ui-2_settings-90"></i>
+                <p>Funcionarios de Soporte</p>
+              </a>
+            </li>
+
             <li>
               <a href="#" id="cargarOficina">
                 <i class="now-ui-icons business_bank"></i>
@@ -444,17 +452,13 @@
     <link href="{{asset('assets/css/now-ui-dashboard.css?v=1.5.0')}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-
   </head>
  @endsection
 
  <!--  Conteido -->
  @section('contenido')
  <div id="contenido">
-
 </div>
-
  @endsection
 
   <!-- Scripts -->
@@ -480,9 +484,6 @@
       demo.initDashboardPageCharts();
     });
   </script>
-
-
-
   @endsection
 
 
@@ -543,6 +544,7 @@
       });
     });
   </script>
+
 
 <!--Script para mostrar oficina.index en el div  -->
 <script>
@@ -617,6 +619,14 @@
       });
     });
   </script>
+
+
+
+
+
+
+
+
 
 
 @endsection

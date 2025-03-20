@@ -10,16 +10,27 @@ use Symfony\Component\HttpFoundation\Response;
 class CheckUserType
 {
     /**
-     * Handle an incoming request.
+     * Maneja la solicitud entrante.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  mixed ...$types  Los tipos de usuario permitidos (por ejemplo, 1, 2, etc.)
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$types): Response
     {
-        if (Auth::guard('funcionario')->check() && Auth::guard('funcionario')->user()->rol_personal === 1) {
-            return redirect()->route('dashboard');
+        // Verifica que exista un usuario autenticado en el guard "funcionario"
+        $user = Auth::guard('funcionario')->user();
+
+        if (!$user) {
+            return redirect()->route('login');
         }
-        
+
+        // Si se pasan tipos, verifica que el rol del usuario esté entre ellos.
+        if (!empty($types) && !in_array($user->rol_personal, $types)) {
+            return redirect()->route('dashboard')->withErrors('No tienes permisos para acceder a esta sección.');
+        }
+
         return $next($request);
     }
 }

@@ -14,19 +14,19 @@
                             <span class="card-title">{{ __('Show') }} Atencione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('atenciones.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
-                        
+
                                 <div class="form-group mb-2 mb20">
                                     <strong>Solicitud Id:</strong>
                                     {{ $atencione->solicitud_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Funcionarios Soportes Id:</strong>
-                                    {{ $atencione->funcionarios_soportes_id }}
+                                    {{ $atencione->funcionario_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Descripcion:</strong>

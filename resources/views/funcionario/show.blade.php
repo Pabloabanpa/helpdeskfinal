@@ -14,7 +14,7 @@
                             <span class="card-title">{{ __('Show') }} Funcionario</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('funcionarios.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
                         </div>
                     </div>
 

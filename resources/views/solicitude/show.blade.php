@@ -14,7 +14,7 @@
                             <span class="card-title">{{ __('Show') }} Solicitude</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('solicitudes.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
@@ -44,11 +44,6 @@
                                     <strong>Fecha Creacion:</strong>
                                     {{ $solicitude->fecha_creacion }}
                                 </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Funcionarios Soportes Id:</strong>
-                                    {{ $solicitude->funcionarioSoporte?->username }}
-                                </div>
-
                     </div>
                 </div>
             </div>

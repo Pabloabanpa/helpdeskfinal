@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property $id
  * @property $solicitud_id
- * @property $funcionarios_soportes_id
+ * @property $funcionario_id
  * @property $descripcion
  * @property $estado
  * @property $fecha_inicio
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Atencione extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -32,17 +32,9 @@ class Atencione extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['solicitud_id', 'funcionarios_soportes_id', 'descripcion', 'estado', 'fecha_inicio', 'fecha_fin'];
+    protected $fillable = ['solicitud_id', 'funcionario_id', 'descripcion', 'estado', 'fecha_inicio', 'fecha_fin'];
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function funcionariosSoporte()
-    {
-        return $this->belongsTo(\App\Models\FuncionariosSoporte::class, 'funcionarios_soportes_id', 'id');
-    }
-    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -50,5 +42,10 @@ class Atencione extends Model
     {
         return $this->belongsTo(\App\Models\Solicitude::class, 'solicitud_id', 'id');
     }
-    
+
+    public function funcionario()
+    {
+        return $this->belongsTo(\App\Models\Funcionario::class, 'funcionario_id', 'id');
+    }
+
 }

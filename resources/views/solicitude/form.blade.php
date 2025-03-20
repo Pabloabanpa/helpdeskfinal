@@ -1,114 +1,132 @@
-<div class="row padding-1 p-1">
-    <div class="col-md-12">
+<div class="container mx-auto mt-4 max-w-2xl">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="text-center text-white bg-blue-500 p-4 rounded-md">
+            <h4 class="text-xl font-semibold">{{ isset($solicitude) ? __('Editar Solicitud') : __('Nueva Solicitud') }}</h4>
+        </div>
+    </div>
+    <div class="float-right">
+        <a class="btn btn-primary btn-sm" href="{{ route('dashboard') }}"> {{ __('Back') }}</a>
+    </div>
+</div>
 
+@php
+    $solicitude = $solicitude ?? null;
+@endphp
+
+<form action="{{ isset($solicitude) ? route('solicitudes.update', $solicitude->id) : route('solicitudes.store') }}"
+      method="POST" enctype="multipart/form-data">
+    @csrf
+    @if(isset($solicitude))
+        @method('PUT')
+    @endif
+
+    <div class="mt-4">
         <!-- Selección de Funcionario -->
-        <div class="form-group mb-2 mb20">
-            <label for="funcionario_id" class="form-label">{{ __('Funcionario') }}</label>
-            <select name="funcionario_id" id="funcionario_id" class="form-control @error('funcionario_id') is-invalid @enderror">
-                <option value="" disabled selected>Seleccione un funcionario</option>
+        <div class="mb-4">
+            <label for="funcionario_id" class="font-semibold text-gray-700">{{ __('Funcionario') }}</label>
+            <select name="funcionario_id" id="funcionario_id" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                <option value="" disabled {{ !isset($solicitude) ? 'selected' : '' }}>Seleccione un funcionario</option>
                 @foreach ($funcionarios as $funcionario)
                     <option value="{{ $funcionario->id }}"
-                        {{ old('funcionario_id', $solicitude?->funcionario_id) == $funcionario->id ? 'selected' : '' }}>
-                        {{ $funcionario?->username ?? 'Sin Username' }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('funcionario_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Checkbox para indicar si no se tiene un equipo -->
-        <div class="form-group mb-2 mb20">
-            <input type="checkbox" id="sin_equipo" name="sin_equipo" class="mr-2">
-            <label for="sin_equipo" class="text-gray-600">No tengo un equipo asignado</label>
-        </div>
-
-        <!-- Campo para ingresar el código del equipo (se oculta si el checkbox está marcado) -->
-        <div class="form-group mb-2 mb20" id="equipoField">
-            <label for="equipo_id" class="form-label">{{ __('Código de equipo') }}</label>
-            <input type="text" name="equipo_id" class="form-control @error('equipo_id') is-invalid @enderror"
-                   value="{{ old('equipo_id', $solicitude?->equipo_id) }}" id="equipo_id" placeholder="Coloque el código del equipo">
-            {!! $errors->first('equipo_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo de Archivo (Solo aparece si no se tiene un equipo) -->
-        <div class="form-group mb-2 mb20" id="archivoField" style="display: none;">
-            <label for="archivo" class="form-label">{{ __('Archivo (PDF o Word)') }}</label>
-            <input type="file" name="archivo" class="form-control @error('archivo') is-invalid @enderror" id="archivo" accept=".pdf,.doc,.docx" placeholder="Cargue aquí su autorización">
-            {!! $errors->first('archivo', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo Descripción de la Solicitud -->
-        <div class="form-group mb-2 mb20">
-            <label for="descripcion_solicitud" class="form-label">{{ __('Descripción Solicitud') }}</label>
-            <input type="text" name="descripcion_solicitud" class="form-control @error('descripcion_solicitud') is-invalid @enderror"
-                   value="{{ old('descripcion_solicitud', $solicitude?->descripcion_solicitud) }}" id="descripcion_solicitud" placeholder="Ingrese la descripción de la solicitud">
-            {!! $errors->first('descripcion_solicitud', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo Estado con opciones predefinidas -->
-        <div class="form-group mb-2 mb20">
-            <label for="estado" class="form-label">{{ __('Estado') }}</label>
-            <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror">
-                <option value="en espera" {{ old('estado', $solicitude?->estado) == 'en espera' ? 'selected' : '' }}>En espera</option>
-                <option value="en proceso" {{ old('estado', $solicitude?->estado) == 'en proceso' ? 'selected' : '' }}>En proceso</option>
-                <option value="finalizada" {{ old('estado', $solicitude?->estado) == 'finalizada' ? 'selected' : '' }}>Finalizada</option>
-                <option value="cancelada" {{ old('estado', $solicitude?->estado) == 'cancelada' ? 'selected' : '' }}>Cancelada</option>
-            </select>
-            {!! $errors->first('estado', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Campo Fecha de Creación con Datepicker -->
-        <div class="form-group mb-2 mb20">
-            <label for="fecha_creacion" class="form-label">{{ __('Fecha Creación') }}</label>
-            <input type="date" name="fecha_creacion" class="form-control @error('fecha_creacion') is-invalid @enderror"
-                   value="{{ old('fecha_creacion', $solicitude?->fecha_creacion ?? date('Y-m-d')) }}" id="fecha_creacion">
-            {!! $errors->first('fecha_creacion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-
-        <!-- Selección de Funcionario de Soporte -->
-        <div class="form-group mb-2 mb20">
-            <label for="funcionarios_soportes_id" class="form-label">{{ __('Funcionario de Soporte') }}</label>
-            <select name="funcionarios_soportes_id" id="funcionarios_soportes_id" class="form-control @error('funcionarios_soportes_id') is-invalid @enderror">
-                <option value="" disabled selected>Seleccione un funcionario de soporte</option>
-                @foreach ($funcionariosSoporte as $funcionario)
-                    <option value="{{ $funcionario->id }}"
-                        {{ old('funcionarios_soportes_id', $solicitude?->funcionarios_soportes_id) == $funcionario->id ? 'selected' : '' }}>
+                        {{ old('funcionario_id', $solicitude->funcionario_id ?? '') == $funcionario->id ? 'selected' : '' }}>
                         {{ $funcionario->username ?? 'Sin Username' }}
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('funcionarios_soportes_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-    </div>
-    <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-    </div>
-</div>
+        <!-- Checkbox para equipo -->
+        <div class="flex items-center mb-4">
+            <input type="checkbox" id="sin_equipo" name="sin_equipo" class="hidden peer"
+                {{ isset($solicitude) && !$solicitude->equipo_id ? 'checked' : '' }}>
+            <label for="sin_equipo" class="cursor-pointer w-14 h-7 flex items-center bg-gray-300 rounded-full p-1 duration-300 peer-checked:bg-green-500 peer-checked:ring-2 peer-checked:ring-green-300">
+                <div class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 peer-checked:translate-x-7"></div>
+            </label>
+            <span class="ml-3 text-gray-600 font-medium">No tengo un equipo asignado</span>
+        </div>
 
-<!-- JavaScript para alternar la visibilidad de los campos -->
+        <!-- Código de equipo -->
+        <div class="mb-4" id="equipoField" style="{{ isset($solicitude) && !$solicitude->equipo_id ? 'display:none;' : '' }}">
+            <label for="equipo_id" class="font-semibold text-gray-700">{{ __('Código de equipo') }}</label>
+            <input type="text" name="equipo_id" id="equipo_id" placeholder="Ingrese el código del equipo"
+                   class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                   value="{{ old('equipo_id', $solicitude->equipo_id ?? '') }}">
+        </div>
+
+        <!-- Carga de archivo -->
+        <div class="mb-4" id="archivoField" style="display: none;">
+            <label class="font-semibold text-gray-700">{{ __('Cargar Autorización (PDF o Word)') }}</label>
+            <div class="w-full border-2 border-dashed border-blue-500 rounded-lg p-6 text-center cursor-pointer bg-gray-100 hover:bg-gray-200 transition duration-300">
+                <svg class="mx-auto h-10 w-10 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l6-6m0 0l6 6m-6-6v12"></path>
+                </svg>
+                <p class="mt-2 text-gray-500">Arrastra y suelta un archivo aquí o</p>
+                <label class="text-blue-600 font-medium cursor-pointer">
+                    selecciona un archivo
+                    <input type="file" name="archivo" id="archivo" class="hidden" accept=".pdf,.doc,.docx">
+                </label>
+                <p class="mt-2 text-gray-500 text-sm">Formatos permitidos: PDF, DOC, DOCX</p>
+                <span id="archivoSeleccionado" class="text-gray-600 text-sm font-medium mt-2 block">
+                    @if(isset($solicitude) && $solicitude->archivo)
+                        Archivo actual: <a href="{{ asset('storage/' . $solicitude->archivo) }}" class="text-blue-500 underline" target="_blank">Ver archivo</a>
+                    @endif
+                </span>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-4">
+            <label for="descripcion_solicitud" class="font-semibold text-gray-700">{{ __('Descripción de la Solicitud') }}</label>
+            <textarea name="descripcion_solicitud" id="descripcion_solicitud" rows="3" placeholder="Ingrese la descripción..."
+                      class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">{{ old('descripcion_solicitud', $solicitude->descripcion_solicitud ?? '') }}</textarea>
+        </div>
+
+        <!-- Estado -->
+        <div class="mb-4">
+            <label for="estado" class="font-semibold text-gray-700">{{ __('Estado de la Solicitud') }}</label>
+            <select name="estado" id="estado" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                @foreach(['en espera', 'en proceso', 'finalizada', 'cancelada'] as $estado)
+                    <option value="{{ $estado }}" {{ old('estado', $solicitude->estado ?? '') == $estado ? 'selected' : '' }}>
+                        {{ ucfirst($estado) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Fecha de Creación -->
+        <div class="mb-4">
+            <label for="fecha_creacion" class="font-semibold text-gray-700">{{ __('Fecha de Creación') }}</label>
+            <input type="date" name="fecha_creacion" id="fecha_creacion"
+                   value="{{ old('fecha_creacion', isset($solicitude) ? $solicitude->fecha_creacion : date('Y-m-d')) }}"
+                   class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+        </div>
+
+        <!-- Tipo de Solicitud -->
+        <div class="mb-4">
+            <label for="tipo_solicitud" class="font-semibold text-gray-700">{{ __('Tipo de Solicitud') }}</label>
+            <select name="tipo_solicitud" id="tipo_solicitud" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+                @foreach(['incidencia_hardware', 'incidencia_software', 'conectividad_redes', 'instalacion_configuracion', 'acceso_permisos'] as $tipo)
+                    <option value="{{ $tipo }}" {{ old('tipo_solicitud', $solicitude->tipo_solicitud ?? '') == $tipo ? 'selected' : '' }}>
+                        {{ ucfirst(str_replace('_', ' ', $tipo)) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                {{ __('Enviar Solicitud') }}
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+<!-- Script para mostrar el nombre del archivo seleccionado -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const equipoField = document.getElementById('equipoField');
-        const equipoIdInput = document.getElementById('equipo_id');
-        const sinEquipoCheckbox = document.getElementById('sin_equipo');
-        const archivoField = document.getElementById('archivoField');
-
-        function toggleFields() {
-            if (sinEquipoCheckbox.checked) {
-                archivoField.style.display = 'block';
-                equipoField.style.display = 'none';
-                equipoIdInput.value = ''; // Borra el contenido del campo equipo_id
-            } else {
-                archivoField.style.display = 'none';
-                equipoField.style.display = 'block';
-            }
-        }
-
-        // Detectar cambios en el checkbox
-        sinEquipoCheckbox.addEventListener('change', toggleFields);
-
-        // Ejecutar la función al cargar la página por si hay valores previos
-        toggleFields();
+    document.getElementById('archivo').addEventListener('change', function() {
+        let fileName = this.files.length > 0 ? this.files[0].name : 'Ningún archivo seleccionado';
+        document.getElementById('archivoSeleccionado').textContent = "Archivo seleccionado: " + fileName;
     });
 </script>

@@ -1,19 +1,32 @@
-<div class="row padding-1 p-1">
-    <div class="col-md-12">
-        
-        <div class="form-group mb-2 mb20">
-            <label for="nombre" class="form-label">{{ __('Nombre') }}</label>
-            <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre', $role?->nombre) }}" id="nombre" placeholder="Nombre">
-            {!! $errors->first('nombre', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="descripcion" class="form-label">{{ __('Descripcion') }}</label>
-            <input type="text" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror" value="{{ old('descripcion', $role?->descripcion) }}" id="descripcion" placeholder="Descripcion">
-            {!! $errors->first('descripcion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+<div class="container mx-auto mt-4 max-w-lg">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="text-center text-white bg-blue-500 p-4 rounded-md">
+            <h4 class="text-xl font-semibold">{{ __('Registro de Rol') }}</h4>
         </div>
 
-    </div>
-    <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <div class="mt-4">
+            <!-- Campo Nombre -->
+            <div class="mb-4">
+                <label for="nombre" class="font-semibold text-gray-700">{{ __('Nombre del Rol') }}</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del rol"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200"
+                       value="{{ old('nombre', $role?->nombre) }}">
+                {!! $errors->first('nombre', '<div class="text-red-500 text-sm mt-1"><strong>:message</strong></div>') !!}
+            </div>
+
+            <!-- Campo Descripción -->
+            <div class="mb-4">
+                <label for="descripcion" class="font-semibold text-gray-700">{{ __('Descripción del Rol') }}</label>
+                <textarea name="descripcion" id="descripcion" rows="3" placeholder="Ingrese la descripción..."
+                          class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">{{ old('descripcion', $role?->descripcion) }}</textarea>
+                {!! $errors->first('descripcion', '<div class="text-red-500 text-sm mt-1"><strong>:message</strong></div>') !!}
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                    {{ __('Guardar Rol') }}
+                </button>
+            </div>
+        </div>
     </div>
 </div>

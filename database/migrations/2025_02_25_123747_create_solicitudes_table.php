@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('estado', 20)->default('pendiente');
             $table->timestamp('fecha_creacion')->default(now());
             $table->unsignedBigInteger('funcionarios_soportes_id')->nullable();
+            $table->string('tipo_solicitudes', 255)->nullable();
+
             $table->timestamps();
 
             // Definir claves foráneas

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anotacione;
+use App\Models\Atencione;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AnotacioneRequest;
@@ -11,6 +12,11 @@ use Illuminate\View\View;
 
 class AnotacioneController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:funcionario');
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,8 +34,11 @@ class AnotacioneController extends Controller
     public function create(): View
     {
         $anotacione = new Anotacione();
+        $atencione = Atencione::all(); // Obtener anotaciones
 
-        return view('anotacione.create', compact('anotacione'));
+
+
+        return view('anotacione.create', compact('anotacione', 'atencione'));
     }
 
     /**
@@ -39,8 +48,8 @@ class AnotacioneController extends Controller
     {
         Anotacione::create($request->validated());
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione created successfully.');
+        return Redirect::route('dashboard')
+            ->with('success', ' successfully.');
     }
 
     /**
@@ -59,8 +68,10 @@ class AnotacioneController extends Controller
     public function edit($id): View
     {
         $anotacione = Anotacione::find($id);
+        $atencione = Atencione::all(); // Obtener anotaciones
 
-        return view('anotacione.edit', compact('anotacione'));
+
+        return view('anotacione.edit', compact('anotacione', 'atencione'));
     }
 
     /**
@@ -70,15 +81,15 @@ class AnotacioneController extends Controller
     {
         $anotacione->update($request->validated());
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione updated successfully');
+        return Redirect::route('dashboard')
+        ->with('success', ' successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Anotacione::find($id)->delete();
 
-        return Redirect::route('anotaciones.index')
-            ->with('success', 'Anotacione deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', ' successfully.');
     }
 }

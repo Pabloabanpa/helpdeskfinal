@@ -28,7 +28,8 @@ class SolicitudeRequest extends FormRequest
             'archivo' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // Solo PDFs y Word, máx 2MB
             'estado' => 'required|string|in:en espera,en proceso,finalizada,cancelada',
             'fecha_creacion' => 'required|date',
-            'funcionarios_soportes_id' => 'nullable|exists:funcionarios_soportes,id'
+            'funcionarios_soportes_id' => 'nullable|exists:funcionarios_soportes,id',
+            'tipo_solicitud' => 'required|string|max:255'
         ];
     }
 }

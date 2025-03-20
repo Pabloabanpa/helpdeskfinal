@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class OficinaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:funcionario');
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -39,8 +44,8 @@ class OficinaController extends Controller
     {
         Oficina::create($request->validated());
 
-        return Redirect::route('oficinas.index')
-            ->with('success', 'Oficina created successfully.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     /**
@@ -70,15 +75,15 @@ class OficinaController extends Controller
     {
         $oficina->update($request->validated());
 
-        return Redirect::route('oficinas.index')
-            ->with('success', 'Oficina updated successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Oficina::find($id)->delete();
 
-        return Redirect::route('oficinas.index')
-            ->with('success', 'Oficina deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 }

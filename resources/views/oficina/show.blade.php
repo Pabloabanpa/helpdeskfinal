@@ -14,12 +14,13 @@
                             <span class="card-title">{{ __('Show') }} Oficina</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('oficinas.index') }}"> {{ __('Back') }}</a>
-                        </div>
+                            <div class="float-right">
+                                <a class="btn btn-primary btn-sm" href="dashboard"> {{ __('Back') }}</a>
+                            </div>                        </div>
                     </div>
 
                     <div class="card-body bg-white">
-                        
+
                                 <div class="form-group mb-2 mb20">
                                     <strong>Nombre:</strong>
                                     {{ $oficina->nombre }}

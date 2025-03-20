@@ -3,38 +3,63 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Funcionario;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
+     * Muestra el formulario de login.
      */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        return view('auth.login');
+    }
+
+    /**
+     * Procesa el login.
+     */
+    public function login(Request $request)
+    {
+        // Validar la entrada usando el campo "login" (que puede ser username o correo)
+        $request->validate([
+            'login' => 'required|string',
+            'password' => 'required|string|min:6',
+        ]);
+
+        // Capturar el valor ingresado (puede ser username o correo)
+        $loginInput = $request->input('login');
+
+        // Detectar si es un correo válido o un username
+        $fieldType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email_inst' : 'username';
+
+        // Buscar al funcionario en la base de datos usando el campo detectado
+        $user = Funcionario::where($fieldType, $loginInput)->first();
+
+        // Verificar que se encuentre el usuario y que la contraseña sea correcta
+        if ($user && Hash::check($request->input('password'), $user->password)) {
+            Auth::guard('funcionario')->login($user);
+            return redirect()->route('dashboard');
+        }
+
+        // Si la autenticación falla, se retorna al formulario con error y se conserva el input
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('login', 'remember'));
+    }
+
+    /**
+     * Cierra la sesión del funcionario.
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard('funcionario')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

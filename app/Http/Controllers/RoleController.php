@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:funcionario');
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -39,8 +44,8 @@ class RoleController extends Controller
     {
         Role::create($request->validated());
 
-        return Redirect::route('roles.index')
-            ->with('success', 'Role created successfully.');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     /**
@@ -70,15 +75,15 @@ class RoleController extends Controller
     {
         $role->update($request->validated());
 
-        return Redirect::route('roles.index')
-            ->with('success', 'Role updated successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         Role::find($id)->delete();
 
-        return Redirect::route('roles.index')
-            ->with('success', 'Role deleted successfully');
+        return Redirect::route('dashboard')
+            ->with('success', 'successfully.');
     }
 }

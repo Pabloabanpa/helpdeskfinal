@@ -395,13 +395,6 @@
 
 
             <li>
-              <a href="#" id="cargarFuncionarioSoporte">
-                <i class="now-ui-icons ui-2_settings-90"></i>
-                <p>Funcionarios de Soporte</p>
-              </a>
-            </li>
-
-            <li>
               <a href="#" id="cargarOficina">
                 <i class="now-ui-icons business_bank"></i>
                 <p>Oficinas</p>
@@ -544,7 +537,6 @@
       });
     });
   </script>
-
 
 <!--Script para mostrar oficina.index en el div  -->
 <script>
